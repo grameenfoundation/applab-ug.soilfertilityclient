@@ -1,0 +1,25 @@
+<TableRow xmlns:android="http://schemas.android.com/apk/res/android"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:background="#b3b3b3" android:layout_margin="1dip">
+    <Spinner android:id="@+id/cmb_crops"
+             android:layout_width="0px"
+             android:layout_height="match_parent"
+             android:layout_weight="0.4"
+             android:spinnerMode="dialog"
+             android:background="#e6e6e6" android:layout_margin="1dip"/>
+    <EditText android:id="@+id/figure_landsize"
+              android:layout_width="0px"
+              android:layout_height="match_parent"
+              android:hint="@string/hint_landsize"
+              android:layout_weight="0.3"
+              android:inputType="number"
+              android:background="#e6e6e6" android:layout_margin="1dip"/>
+    <EditText android:id="@+id/figure_profit"
+              android:layout_width="0px"
+              android:layout_height="match_parent"
+              android:hint="@string/hint_profit"
+              android:layout_weight="0.3"
+              android:inputType="number"
+              android:background="#e6e6e6" android:layout_margin="1dip"/>
+</TableRow>

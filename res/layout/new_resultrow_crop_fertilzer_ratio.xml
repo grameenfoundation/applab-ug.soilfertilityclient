@@ -1,0 +1,29 @@
+<TableRow
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/result_ratio_row"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="#b3b3b3" android:layout_margin="1dip">
+    <TextView
+            android:id="@+id/result_ratio_crop_row"
+            android:layout_width="0px"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.4"
+            android:layout_marginLeft="5dip"
+            android:background="#e6e6e6" android:layout_margin="1dip"/>
+    <TextView
+            android:id="@+id/result_ratio_fertilizer_row"
+            android:layout_width="0px"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.3"
+            android:layout_marginLeft="5dip"
+            android:background="#e6e6e6" android:layout_margin="1dip"/>
+    <TextView
+            android:id="@+id/result_ratio_rate_row"
+            android:layout_width="0px"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.3"
+            android:layout_marginLeft="5dip"
+            android:text="@string/header_crop_fertilizer_ratio"
+            android:background="#e6e6e6" android:layout_margin="1dip"/>
+</TableRow>
