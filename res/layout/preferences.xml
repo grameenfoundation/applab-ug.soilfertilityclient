@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<PreferenceScreen
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent">
+    <EditTextPreference
+            android:title="URL"
+            android:defaultValue="http://74.208.213.214:8888/Service1.asmx/Optimize"
+            android:key="url"
+            android:summary="web service post method location"/>
+</PreferenceScreen>

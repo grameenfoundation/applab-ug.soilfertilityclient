@@ -1,30 +1,30 @@
 package org.grameenfoundation.soilfertility.model;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
 
 import java.io.Serializable;
 
 /**
- * Copyright (c) 2013 AppLab, Grameen Foundation
+ * Copyright (c) 2014 AppLab, Grameen Foundation
  * Created by: David
  */
+@DatabaseTable(tableName = "fertilizer")
 public class Fertilizer implements Serializable {
 
+    @DatabaseField(id = true)
+    @Expose
     @SerializedName("Name")
     private String name;
-    @SerializedName("Price")
-    private int price;
-    @SerializedName("TotalRequired")
-    private Double totalRequired;
 
-    public Double getTotalRequired() {
-        return totalRequired;
+    public Fertilizer(){
+
     }
-
-    public void setTotalRequired(Double totalRequired) {
-        this.totalRequired = totalRequired;
+    public Fertilizer(String name){
+        setName(name);
     }
-
     public String getName() {
         return name;
     }
@@ -33,11 +33,8 @@ public class Fertilizer implements Serializable {
         this.name = name;
     }
 
-    public int getPrice() {
-        return price;
-    }
-
-    public void setPrice(int price) {
-        this.price = price;
+    @Override
+    public String toString() {
+        return getName();
     }
 }

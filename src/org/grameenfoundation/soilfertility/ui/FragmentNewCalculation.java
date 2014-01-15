@@ -1,22 +1,24 @@
 package org.grameenfoundation.soilfertility.ui;
 
 import android.content.Context;
-import android.content.Intent;
-import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTabHost;
 import android.telephony.TelephonyManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
 import com.actionbarsherlock.app.SherlockFragment;
+import com.j256.ormlite.android.apptools.OpenHelperManager;
 import org.grameenfoundation.soilfertility.R;
+import org.grameenfoundation.soilfertility.dataaccess.DatabaseHelper;
 import org.grameenfoundation.soilfertility.model.*;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 /**
  * Copyright (c) 2013 AppLab, Grameen Foundation
@@ -38,8 +40,8 @@ public class FragmentNewCalculation extends SherlockFragment {
     private TableLayout table_fertilizers;
     private Spinner lstbox_crops;
     private Spinner lstbox_fertilzers;
-    private List lst_crops;
-    private List lst_fertilizers;
+    private List<Crop> lst_crops;
+    private List<Fertilizer> lst_fertilizers;
     private List lst_new_croplistbox_ids;
     private List lst_new_crop_landsize_ids;
     private List lst_new_crop_profit_ids;
@@ -49,6 +51,10 @@ public class FragmentNewCalculation extends SherlockFragment {
     private int id_count_fertilizers = 1;
     private int id_count_crop_rows = 2000;
     private int id_count_fertilizers_rows = 3000;
+    private static final Double HACTARE = 0.404686;
+    private static final Double ACRE = 2.47105;
+    private DatabaseHelper databaseHelper = null;
+    private final String LOG_TAG = getClass().getSimpleName();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -70,25 +76,19 @@ public class FragmentNewCalculation extends SherlockFragment {
         lst_new_fertilizer_listbox_ids = new ArrayList();
         lst_new_fertilizer_price_ids = new ArrayList();
 
-        //we will get these items from a local database
-        lst_crops = new ArrayList();
-        lst_crops.add("Maize");
-        lst_crops.add("Sorghum");
-        lst_crops.add("Upland rice, paddy");
-        lst_crops.add("Beans");
-        lst_crops.add("Soybeans");
-        lst_crops.add("Groundnuts, unshelled");
-        ArrayAdapter adapter = new ArrayAdapter(getSherlockActivity(), android.R.layout.simple_spinner_dropdown_item, lst_crops);
-        lstbox_crops.setAdapter(adapter);
+        try {
+            //we will get these items from a local database
+            lst_crops = getHelper().getCropDataDao().queryForAll();
+            ArrayAdapter adapter = new ArrayAdapter(getSherlockActivity(), android.R.layout.simple_spinner_dropdown_item, lst_crops);
+            lstbox_crops.setAdapter(adapter);
 
-        lst_fertilizers = new ArrayList();
-        lst_fertilizers.add("Urea");
-        lst_fertilizers.add("Triple super phosphate, TSP");
-        lst_fertilizers.add("Diammonium phosphate, DAP");
-        lst_fertilizers.add("Murate of potash, KCL");
-        ArrayAdapter adapterFertilizers = new ArrayAdapter(getSherlockActivity(), android.R.layout.simple_spinner_dropdown_item, lst_fertilizers);
-        lstbox_fertilzers.setAdapter(adapterFertilizers);
-
+            lst_fertilizers = getHelper().getFertilizerDataDao().queryForAll();
+            ArrayAdapter adapterFertilizers = new ArrayAdapter(getSherlockActivity(), android.R.layout.simple_spinner_dropdown_item, lst_fertilizers);
+            lstbox_fertilzers.setAdapter(adapterFertilizers);
+        } catch (SQLException e) {
+            Toast.makeText(getSherlockActivity(), "failed to read data", Toast.LENGTH_SHORT).show();
+            Log.e(LOG_TAG, "Database exception", e);
+        }
         btnAddNewCrop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -132,10 +132,11 @@ public class FragmentNewCalculation extends SherlockFragment {
     private void btnCalculateClicked(View view) {
         try {
             validate();
-            calculator = new LocalCalculator(view.getContext(), "http://74.208.213.214:8888/Service1.asmx/Optimize");
-            Optimizer details = new Optimizer();
-            List<Crop> crops = new ArrayList<Crop>();
-            List<Fertilizer> fertilizers = new ArrayList<Fertilizer>();
+            String url = getSherlockActivity().getSharedPreferences("preferences.xml", Context.MODE_MULTI_PROCESS).getString("url","http://74.208.213.214:8888/Service1.asmx/Optimize");
+            calculator = new LocalCalculator(view.getContext(), url);
+            Calc details = new Calc();
+            List<CalcCrop> calcCrops = new ArrayList<CalcCrop>();
+            List<CalcFertilizer> calcFertilizers = new ArrayList<CalcFertilizer>();
             //fill in details from UI
             //imei and farmer name
             TelephonyManager telephonyManager = (TelephonyManager) getSherlockActivity()
@@ -144,7 +145,7 @@ public class FragmentNewCalculation extends SherlockFragment {
             details.setFarmerName(txt_farmer_name.getText().toString());
 
             /*
-            get dynamically added controls and add other crops
+            get dynamically added controls and add other calcCrops
             here
              */
             for (int x = 1; x < table_crops.getChildCount(); x++) {
@@ -160,15 +161,15 @@ public class FragmentNewCalculation extends SherlockFragment {
                     throw new ValidationException("Profit/Kg is empty!");
                 }
                 //populate next crop
-                Crop next_crop = new Crop();
-                next_crop.setName(selectedCrop.getText().toString());
-                next_crop.setArea(Integer.parseInt(txt_of_land.getText().toString()));
-                next_crop.setProfit(Integer.parseInt(txt_of_profit.getText().toString()));
-                crops.add(next_crop);
+                CalcCrop next_Calc_crop = new CalcCrop(details);
+                next_Calc_crop.setCrop(getHelper().getCropDataDao().queryForSameId(new Crop(selectedCrop.getText().toString())));
+                next_Calc_crop.setArea(changeAcresToHectares(Double.parseDouble(txt_of_land.getText().toString())));
+                next_Calc_crop.setProfit(Integer.parseInt(txt_of_profit.getText().toString()));
+                calcCrops.add(next_Calc_crop);
             }
-            details.setCrops(crops);
+            details.setCalcCrops(calcCrops);
              /*
-            get dynamically added controls and add other fertilizers
+            get dynamically added controls and add other calcFertilizers
             here
              */
             for (int x = 1; x < table_fertilizers.getChildCount(); x++) {
@@ -180,12 +181,12 @@ public class FragmentNewCalculation extends SherlockFragment {
                     throw new ValidationException("Price/50kg bag is empty!");
                 }
                 //populate next fertilizer
-                Fertilizer next_fertilizer = new Fertilizer();
-                next_fertilizer.setName(selectedFertilizer.getText().toString());
-                next_fertilizer.setPrice(Integer.parseInt(txt_next_price_per_bag.getText().toString()));
-                fertilizers.add(next_fertilizer);
+                CalcFertilizer next_Calc_fertilizer = new CalcFertilizer(details);
+                next_Calc_fertilizer.setFertilizer(getHelper().getFertilizerDataDao().queryForSameId(new Fertilizer(selectedFertilizer.getText().toString())));
+                next_Calc_fertilizer.setPrice(Integer.parseInt(txt_next_price_per_bag.getText().toString()));
+                calcFertilizers.add(next_Calc_fertilizer);
             }
-            details.setFertilizers(fertilizers);
+            details.setCalcFertilizers(calcFertilizers);
 
             //amount available for expenditure
             EditText txt_amount_available = (EditText) view.findViewById(R.id.txt_amount_available);
@@ -193,10 +194,18 @@ public class FragmentNewCalculation extends SherlockFragment {
                 throw new ValidationException("Amount available is empty!");
             }
             details.setAmtAvailable(Double.parseDouble(txt_amount_available.getText().toString()));
-
+//            try {
+//                getHelper().getCalculationsDataDao().create(details);
+//            } catch (SQLException e) {
+//                Toast.makeText(getSherlockActivity(), "failed to log calculation", Toast.LENGTH_SHORT);
+//                Log.e(LOG_TAG, "Database exception", e);
+//            }
             calculator.execute(details);
         } catch (ValidationException e) {
             Toast.makeText(getSherlockActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
+        } catch (Exception e) {
+            Log.e(getClass().getSimpleName(), "Error", e);
+            Toast.makeText(getSherlockActivity(), "failed to process your request, try again later", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -228,17 +237,21 @@ public class FragmentNewCalculation extends SherlockFragment {
             //well, we always have to leave a row
             return;
         }
-
-        //obtain the row
-        TableRow row = (TableRow) table_fertilizers.getChildAt(table_fertilizers.getChildCount() - 1);
-        //recover the fertilizer that was eliminated from the listboxes upon selection
-        Spinner lstbox_last_fertilizer = (Spinner) row.findViewById(--id_count_fertilizers);
-        String recovered_item = (String) lstbox_last_fertilizer.getTag();
-        lst_fertilizers.add(recovered_item);
-        //delete row from layout and refresh
-        table_fertilizers.removeViewAt(table_fertilizers.getChildCount() - 1);
-        table_fertilizers.invalidate();
-        table_fertilizers.requestLayout();
+        try {
+            //obtain the row
+            TableRow row = (TableRow) table_fertilizers.getChildAt(table_fertilizers.getChildCount() - 1);
+            //recover the fertilizer that was eliminated from the listboxes upon selection
+            Spinner lstbox_last_fertilizer = (Spinner) row.findViewById(--id_count_fertilizers);
+            String recovered_item = (String) lstbox_last_fertilizer.getTag();
+            lst_fertilizers.add(getHelper().getFertilizerDataDao().queryForSameId(new Fertilizer(recovered_item)));
+            //delete row from layout and refresh
+            table_fertilizers.removeViewAt(table_fertilizers.getChildCount() - 1);
+            table_fertilizers.invalidate();
+            table_fertilizers.requestLayout();
+        } catch (SQLException e) {
+            Toast.makeText(getSherlockActivity(), "failed to read data", Toast.LENGTH_SHORT).show();
+            Log.e(LOG_TAG, "Database exception", e);
+        }
     }
 
     /**
@@ -250,7 +263,7 @@ public class FragmentNewCalculation extends SherlockFragment {
             return;
         }
         String selected_fertilizer = lstbox_fertilzers.getSelectedItem().toString();
-        if (!lst_fertilizers.remove(selected_fertilizer) || selected_fertilizer == null || selected_fertilizer == "") {
+        if (!removeFertilizer(selected_fertilizer) || selected_fertilizer == null || selected_fertilizer == "") {
             //failed to remove already selected item,
             //i expect this to happen only when there are no items in listbox
             return;
@@ -290,17 +303,21 @@ public class FragmentNewCalculation extends SherlockFragment {
             //well, we always have to leave a row
             return;
         }
-
-        //obtain the row
-        TableRow row = (TableRow) table_crops.getChildAt(table_crops.getChildCount() - 1);
-        //recover the crop that was eliminated from the listboxes upon selection
-        Spinner lstbox_last_crop = (Spinner) row.findViewById(--id_count_crops);
-        String recovered_item = (String) lstbox_last_crop.getTag();
-        lst_crops.add(recovered_item);
-        //delete row from layout and refresh
-        table_crops.removeViewAt(table_crops.getChildCount() - 1);
-        table_crops.invalidate();
-        table_crops.requestLayout();
+        try {
+            //obtain the row
+            TableRow row = (TableRow) table_crops.getChildAt(table_crops.getChildCount() - 1);
+            //recover the crop that was eliminated from the listboxes upon selection
+            Spinner lstbox_last_crop = (Spinner) row.findViewById(--id_count_crops);
+            String recovered_item = (String) lstbox_last_crop.getTag();
+            lst_crops.add(getHelper().getCropDataDao().queryForSameId(new Crop(recovered_item)));
+            //delete row from layout and refresh
+            table_crops.removeViewAt(table_crops.getChildCount() - 1);
+            table_crops.invalidate();
+            table_crops.requestLayout();
+        } catch (SQLException e) {
+            Toast.makeText(getSherlockActivity(), "failed to read data", Toast.LENGTH_SHORT).show();
+            Log.e(LOG_TAG, "Database exception", e);
+        }
     }
 
     /**
@@ -312,7 +329,7 @@ public class FragmentNewCalculation extends SherlockFragment {
             return;
         }
         String selected_crop = lstbox_crops.getSelectedItem().toString();
-        if (!lst_crops.remove(selected_crop) || selected_crop == null || selected_crop == "") {
+        if (!removeCrop(selected_crop) || selected_crop == null || selected_crop == "") {
             //failed to remove already selected item,
             //i expect this to happen only when there are no items in listbox
             return;
@@ -346,6 +363,26 @@ public class FragmentNewCalculation extends SherlockFragment {
         }
     }
 
+    private boolean removeCrop(String cropName) {
+        for (Crop crop : lst_crops) {
+            if (crop.getName().equals(cropName)) {
+                lst_crops.remove(crop);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean removeFertilizer(String fertilizerName) {
+        for (Fertilizer fertilizer : lst_fertilizers) {
+            if (fertilizer.getName().equals(fertilizerName)) {
+                lst_fertilizers.remove(fertilizer);
+                return true;
+            }
+        }
+        return false;
+    }
+
     /**
      * this will help ensure the newly added controls are displayed
      */
@@ -353,9 +390,43 @@ public class FragmentNewCalculation extends SherlockFragment {
         final ScrollView scrolview = (ScrollView) getSherlockActivity().findViewById(R.id.scroll_view);
         scrolview.post(new Runnable() {
             public void run() {
-                scrolview.scrollTo(0, (int) btnAddNewCrop.getY() - 100);
+                if (Build.VERSION.SDK_INT >= 11) { //API level 8 (Froyo - Ideos) wont have the getY method
+                    scrolview.scrollTo(0, (int) btnAddNewCrop.getY() - 100);
+                }
             }
         });
+    }
+
+    /**
+     * converts area from Acres to Hectares
+     *
+     * @param acres the acres to be converted
+     * @return hectares in the provided acres
+     */
+    private Double changeAcresToHectares(Double acres) {
+        return acres * HACTARE;
+    }
+
+    /**
+     * converts area from Hectares to Acres
+     *
+     * @param hectares the hectares to be converted
+     * @return acres in tje provided hectares
+     */
+    public static Double changeHectaresToAcres(Double hectares) {
+        return hectares * ACRE;
+    }
+
+    /**
+     * gets the helper from the manager
+     *
+     * @return a databasehelper instance
+     */
+    private DatabaseHelper getHelper() {
+        if (databaseHelper == null) {
+            databaseHelper = OpenHelperManager.getHelper(getSherlockActivity(), DatabaseHelper.class);
+        }
+        return databaseHelper;
     }
 
     /**

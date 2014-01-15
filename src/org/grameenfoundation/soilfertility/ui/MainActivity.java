@@ -1,7 +1,10 @@
 package org.grameenfoundation.soilfertility.ui;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.util.Log;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 
 import android.support.v4.app.FragmentTransaction;
@@ -39,39 +42,26 @@ public class MainActivity extends SherlockFragmentActivity {
         // Get the view from main.xml
         setContentView(R.layout.main);
 
-        // Restore preferences
-//        SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
-//        String url = settings.getBoolean("silentMode", false);
-//        setSilent(silent);
-
         // Get the Title
         mTitle = mDrawerTitle = getTitle();
-
         // Generate title
         title = new String[]{"New Calculation", "Previous Calculations"};
-
         // Generate subtitle
         subtitle = new String[]{"soil requirements", "logs"};
-
         // Generate icon
         icon = new int[]{R.drawable.collections_cloud, R.drawable.action_about};
-
-        // Locate DrawerLayout in drawer_main.xml
+        // Locate DrawerLayout in main.xml
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-
-        // Locate ListView in drawer_main.xml
+        // Locate ListView in main.xml
         mDrawerList = (ListView) findViewById(R.id.listview_drawer);
 
         // Set a custom shadow that overlays the main content when the drawer
         // opens
         mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
-
         // Pass string arrays to MenuListAdapter
         mMenuAdapter = new MenuListAdapter(MainActivity.this, title, subtitle, icon);
-
         // Set the MenuListAdapter to the ListView
         mDrawerList.setAdapter(mMenuAdapter);
-
         // Capture listview menu item click
         mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
 
@@ -113,6 +103,8 @@ public class MainActivity extends SherlockFragmentActivity {
             } else {
                 mDrawerLayout.openDrawer(mDrawerList);
             }
+        } else if (item.getItemId() == R.id.mn_preferences) {
+            startActivity(new Intent(this, Preferences.class));
         }
 
         return super.onOptionsItemSelected(item);
@@ -175,7 +167,20 @@ public class MainActivity extends SherlockFragmentActivity {
     }
 
     @Override
-    public void onResume(){
+    public void onResume() {
         super.onResume();
+    }
+
+    /**
+     * infalte the menu
+     *
+     * @param menu
+     * @return
+     */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getSupportMenuInflater().inflate(R.layout.menu, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 }

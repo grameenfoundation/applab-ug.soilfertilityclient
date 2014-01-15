@@ -1,25 +1,31 @@
 package org.grameenfoundation.soilfertility.model;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
 
 import java.io.Serializable;
 
 /**
- * Copyright (c) 2013 AppLab, Grameen Foundation
+ * Copyright (c) 2014 AppLab, Grameen Foundation
  * Created by: David
  */
+@DatabaseTable(tableName = "crop")
 public class Crop implements Serializable {
 
+    @DatabaseField(id = true)
+    @Expose
     @SerializedName("Name")
     private String name;
-    @SerializedName("Area")
-    private int area;
-    @SerializedName("Profit")
-    private int profit;
-    @SerializedName("YieldIncrease")
-    private Double yieldIncrease;
-    @SerializedName("NetReturns")
-    private Double netReturns;
+
+    public Crop() {
+
+    }
+
+    public Crop(String name) {
+        setName(name);
+    }
 
     public String getName() {
         return name;
@@ -29,35 +35,9 @@ public class Crop implements Serializable {
         this.name = name;
     }
 
-    public int getArea() {
-        return area;
+    @Override
+    public String toString() {
+        return getName();
     }
 
-    public void setArea(int area) {
-        this.area = area;
-    }
-
-    public int getProfit() {
-        return profit;
-    }
-
-    public void setProfit(int profit) {
-        this.profit = profit;
-    }
-
-    public Double getYieldIncrease() {
-        return yieldIncrease;
-    }
-
-    public void setYieldIncrease(Double yieldIncrease) {
-        this.yieldIncrease = yieldIncrease;
-    }
-
-    public Double getNetReturns() {
-        return netReturns;
-    }
-
-    public void setNetReturns(Double netReturns) {
-        this.netReturns = netReturns;
-    }
 }

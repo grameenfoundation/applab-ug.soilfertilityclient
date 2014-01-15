@@ -1,3 +1,9 @@
 bin/*
 out/*
-.idea/workspace.xml
+/gen
+.idea/
+.idea/ant.xml
+.idea/compiler.xml
+.idea/modules.xml
+libs/actionbarsherlock/
+soil-fertility-tool.iml

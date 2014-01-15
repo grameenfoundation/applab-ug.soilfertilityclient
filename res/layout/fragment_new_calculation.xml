@@ -83,7 +83,7 @@
                               android:layout_height="match_parent"
                               android:hint="@string/hint_landsize"
                               android:layout_weight="0.3"
-                              android:inputType="number"
+                              android:inputType="numberDecimal"
                               android:background="#e6e6e6" android:layout_margin="1dip"/>
                     <EditText android:id="@+id/figure_profit"
                               android:padding="5dp"
@@ -168,6 +168,8 @@
                           android:hint="@string/hint_price_per_bag"
                           android:layout_weight="0.5"
                           android:inputType="number"
+                          android:singleLine="true"
+                          android:gravity="center_vertical|left"
                           android:background="#e6e6e6" android:layout_margin="1dip"/>
             </TableRow>
         </TableLayout>
