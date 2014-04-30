@@ -4,8 +4,10 @@
         android:layout_height="match_parent"
         android:layout_width="match_parent">
     <EditTextPreference
-            android:title="URL"
-            android:defaultValue="http://74.208.213.214:8888/Service1.asmx/Optimize"
+            android:title="PublicURL"
+            android:defaultValue="http://212.88.100.70:8888/Service1.asmx/Optimize"
             android:key="url"
             android:summary="web service post method location"/>
+
+
 </PreferenceScreen>

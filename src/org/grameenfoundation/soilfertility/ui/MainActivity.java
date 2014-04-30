@@ -1,22 +1,19 @@
 package org.grameenfoundation.soilfertility.ui;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.util.Log;
-import com.actionbarsherlock.app.SherlockFragmentActivity;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuItem;
-
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.app.Fragment;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.support.v4.view.GravityCompat;
+import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
 import org.grameenfoundation.soilfertility.R;
 
 public class MainActivity extends SherlockFragmentActivity {
@@ -33,8 +30,6 @@ public class MainActivity extends SherlockFragmentActivity {
     private Fragment fragmentPreviousCalculations = new FragmentPreviousCalculations();
     private CharSequence mDrawerTitle;
     private CharSequence mTitle;
-    public static final String PREFS_NAME = "PrefsFile";
-    public static String URL;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

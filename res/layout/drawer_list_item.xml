@@ -19,7 +19,7 @@
 
         <TextView
                 android:id="@+id/title"
-                style="?attr/spinnerDropDownItemStyle"
+                style="?android:attr/spinnerDropDownItemStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
@@ -27,12 +27,12 @@
 
         <TextView
                 android:id="@+id/subtitle"
-                style="?attr/spinnerDropDownItemStyle"
+                style="?android:attr/spinnerDropDownItemStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:singleLine="true"
-                android:textAppearance="?attr/textAppearanceSmall" />
+                android:textAppearance="?android:attr/textAppearanceSmall" />
     </LinearLayout>
 
 </LinearLayout>

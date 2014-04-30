@@ -15,14 +15,18 @@
     <string name="lbl_name">Farmer\'s Name</string>
     <string name="lbl_new_crop">add crop</string>
     <string name="lbl_remove_crop"></string>
+
     <string name="title_crop">Crop</string>
-    <string name="title_landsize">Size of land\n(acres)</string>
-    <string name="title_profitkgs">Expected profit\n per Kg</string>
+    <string name="title_landsize">Land Size\n(acres)</string>
+    <string name="title_profitkgs">Expected price\n per Kg</string>
+
+    <string name="txt_blank">...</string>
 
     <string name="size_labels">16sp</string>
     <string name="size_table_titles">16sp</string>
     <string name="title_price_per_bag">Price per 50Kg bag</string>
     <string name="title_fertilizer">Fertilizer</string>
+    <string name="title_user_input">User Input</string>
     <string name="lbl_new_fertiliser">add fertilizer</string>
     <string name="lbl_amount_available">Amount available</string>
     <string name="lbl_btn_calculate">Calculate</string>
@@ -33,7 +37,7 @@
     <string name="title_net_returns">Net Returns</string>
     <string name="results_label_expected_averages">Expected Average Effects per Acre</string>
     <string name="results_label_net_returns">Total net returns to investiment in fertilizer</string>
-    <string name="hint_profit">profit/Kg</string>
+    <string name="hint_crop_price_per_kg">price/Kg</string>
     <string name="hint_price_per_bag">price/50kg bag</string>
 
     <style name="invisible_buttons_text">

@@ -1,7 +1,6 @@
 package org.grameenfoundation.soilfertility.ui;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -10,12 +9,11 @@ import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import org.grameenfoundation.soilfertility.R;
 import org.grameenfoundation.soilfertility.dataaccess.DatabaseHelper;
+import org.grameenfoundation.soilfertility.model.Calc;
 import org.grameenfoundation.soilfertility.model.CalcCrop;
 import org.grameenfoundation.soilfertility.model.CalcCropFertilizerRatio;
 import org.grameenfoundation.soilfertility.model.CalcFertilizer;
-import org.grameenfoundation.soilfertility.model.Calc;
 
-import java.sql.SQLException;
 import java.text.DecimalFormat;
 
 /**
@@ -30,6 +28,9 @@ public class CalculationResults extends SherlockFragmentActivity {
     private TableLayout table_ratios;
     private TableLayout table_total_fertilizer;
     private TableLayout table_expected_effects;
+
+    private TableLayout table_crops, table_fertilizers;
+
     private TextView lbl_total_net_returns_on_investiment;
     private int new_row_id_multiplier = 1;
     private final DecimalFormat formatter = new DecimalFormat("#,###");
@@ -44,6 +45,10 @@ public class CalculationResults extends SherlockFragmentActivity {
         table_ratios = (TableLayout) findViewById(R.id.table_crop_feertilzer_ration);
         table_total_fertilizer = (TableLayout) findViewById(R.id.table_fertilizer_totals);
         table_expected_effects = (TableLayout) findViewById(R.id.table_expected_effects);
+
+        table_crops = (TableLayout) findViewById(R.id.table_crops);
+        table_fertilizers = (TableLayout) findViewById(R.id.table_fertilisers);
+
         lbl_total_net_returns_on_investiment = (TextView) findViewById(R.id.lbl_total_net_returns_on_investiment);
         results = (Calc) getIntent().getSerializableExtra("result");
         if (results != null) {
@@ -54,14 +59,20 @@ public class CalculationResults extends SherlockFragmentActivity {
             //display net returns
             long net_returns = Math.round(results.getTotNetReturns());
             lbl_total_net_returns_on_investiment.setText(formatter.format(net_returns));
+
+            populateCropsTable();
+
+            populateFertilizersTable();
+
         }
+
+
     }
 
     /**
      * render crop fertilizer ratios in table layout
      */
     private void populateCropFertilzerRatiosTable() {
-        if (results != null) {
             LayoutInflater inflater = getLayoutInflater();
 
             for (CalcCropFertilizerRatio ratio : results.getCropFerts()) {
@@ -71,7 +82,7 @@ public class CalculationResults extends SherlockFragmentActivity {
                 //column crop
                 TextView txt_crop = (TextView) new_row.findViewById(R.id.result_ratio_crop_row);
                 txt_crop.setId(new_row_id_multiplier++);
-                txt_crop.setText(ratio.getCalcCrop().getName());
+                txt_crop.setText(ratio.getCrop().getName());
                 //column fertilizer
                 TextView txt_fertlizer = (TextView) new_row.findViewById(R.id.result_ratio_fertilizer_row);
                 txt_fertlizer.setId(new_row_id_multiplier++);
@@ -86,16 +97,12 @@ public class CalculationResults extends SherlockFragmentActivity {
                     table_ratios.addView(new_row);
                 }
             }
-            //table_ratios.invalidate();
-            //table_ratios.requestLayout();
-        }
     }
 
     /**
      * render total fertilizer figures in table layout
      */
     private void populateCropTotalFertilzersTable() {
-        if (results != null) {
             LayoutInflater inflater = getLayoutInflater();
 
             for (CalcFertilizer calcFertilizer : results.getCalcFertilizers()) {
@@ -114,16 +121,12 @@ public class CalculationResults extends SherlockFragmentActivity {
                 //add row
                 table_total_fertilizer.addView(new_row);
             }
-            //table_ratios.invalidate();
-            //table_ratios.requestLayout();
-        }
     }
 
     /**
      * render expected total returns in table layout
      */
     private void populateExpectedEffectsTable() {
-        if (results != null) {
             LayoutInflater inflater = getLayoutInflater();
 
             for (CalcCrop calcCrop : results.getCalcCrops()) {
@@ -149,6 +152,60 @@ public class CalculationResults extends SherlockFragmentActivity {
             }
             //table_ratios.invalidate();
             //table_ratios.requestLayout();
+    }
+
+    private void populateCropsTable(){
+            LayoutInflater inflater = getLayoutInflater();
+
+            for (CalcCrop calcCrop : results.getCalcCrops()) {
+                //create a new row for ratios
+                TableRow new_row = (TableRow) inflater.inflate(R.layout.new_resultrow_crop, table_crops, false);
+                //new_row.setId(new_row_id_multiplier++);
+
+                //column calcCrop
+                TextView txt_crop_name = (TextView) new_row.findViewById(R.id.crop_name);
+                txt_crop_name.setId(new_row_id_multiplier++);
+                txt_crop_name.setText(calcCrop.getCrop().getName());
+
+                //column land_size
+                TextView txt_area = (TextView) new_row.findViewById(R.id.crop_area);
+                txt_area.setId(new_row_id_multiplier++);
+                // long area = Math.round(calcCrop.getArea());
+                // txt_area.setText(formatter.format(area));
+                txt_area.setText(calcCrop.getArea().toString());
+
+                //column price
+                TextView txt_price = (TextView) new_row.findViewById(R.id.crop_price);
+                txt_price.setId(new_row_id_multiplier++);
+                // long price = Math.round(calcCrop.getProfit());
+                // txt_price.setText(formatter.format(price));
+                txt_price.setText(calcCrop.getProfit().toString());
+
+                //add row
+                table_crops.addView(new_row);
+            }
+    }
+
+    private void populateFertilizersTable(){
+        LayoutInflater inflater = getLayoutInflater();
+
+        for (CalcFertilizer cf : results.getCalcFertilizers()) {
+            //create a new row for ratios
+            TableRow new_row = (TableRow) inflater.inflate(R.layout.new_resultrow_fertilizer, table_fertilizers, false);
+            //new_row.setId(new_row_id_multiplier++);
+
+            //column calcFertilizer
+            TextView txt_name = (TextView) new_row.findViewById(R.id.fertilizer_name);
+            txt_name.setId(new_row_id_multiplier++);
+            txt_name.setText(cf.getFertilizer().getName());
+
+            //column price
+            TextView txt_price = (TextView) new_row.findViewById(R.id.crop_price);
+            txt_price.setId(new_row_id_multiplier++);
+            txt_price.setText(cf.getPrice());
+
+            //add row
+            table_fertilizers.addView(new_row);
         }
     }
 

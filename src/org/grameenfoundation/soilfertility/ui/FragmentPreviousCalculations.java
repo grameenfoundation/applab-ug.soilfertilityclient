@@ -6,23 +6,18 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.*;
+import android.widget.AdapterView;
+import android.widget.ListView;
+import android.widget.Toast;
 import com.actionbarsherlock.app.SherlockListFragment;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
-import com.j256.ormlite.stmt.PreparedQuery;
-import com.j256.ormlite.stmt.QueryBuilder;
-import com.j256.ormlite.stmt.Where;
 import org.grameenfoundation.soilfertility.R;
 import org.grameenfoundation.soilfertility.dataaccess.DatabaseHelper;
 import org.grameenfoundation.soilfertility.model.Calc;
 import org.grameenfoundation.soilfertility.model.CalcAdapter;
 
 import java.sql.SQLException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.List;
-import java.util.Locale;
 
 /**
  * Copyright (c) 2013 AppLab, Grameen Foundation

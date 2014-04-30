@@ -37,7 +37,7 @@ public class CalcCrop extends BaseDaoEnabled implements Serializable {
     @DatabaseField
     @Expose
     @SerializedName("Profit")
-    private int profit;
+    private Double profit;
 
     @DatabaseField
     @Expose
@@ -73,11 +73,11 @@ public class CalcCrop extends BaseDaoEnabled implements Serializable {
         this.area = area;
     }
 
-    public int getProfit() {
+    public Double getProfit() {
         return profit;
     }
 
-    public void setProfit(int profit) {
+    public void setProfit(Double profit) {
         this.profit = profit;
     }
 

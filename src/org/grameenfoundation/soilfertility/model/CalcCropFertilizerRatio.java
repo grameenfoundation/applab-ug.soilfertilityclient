@@ -5,6 +5,7 @@ import com.google.gson.annotations.SerializedName;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.misc.BaseDaoEnabled;
 import com.j256.ormlite.table.DatabaseTable;
+import org.grameenfoundation.soilfertility.ui.FragmentNewCalculation;
 
 import java.io.Serializable;
 
@@ -26,7 +27,7 @@ public class CalcCropFertilizerRatio extends BaseDaoEnabled implements Serializa
     @DatabaseField(foreign = true)
     @Expose
     @SerializedName("Crop")
-    private Crop calcCrop;
+    private Crop crop;
 
     @DatabaseField(foreign = true)
     @Expose
@@ -38,15 +39,15 @@ public class CalcCropFertilizerRatio extends BaseDaoEnabled implements Serializa
     @SerializedName("Amt")
     private Double amt;
 
-    private static final Double ACRE = 2.47105;
+    //private static final Double ACRE = 2.47105;
     private static boolean is_converted = false;
 
-    public Crop getCalcCrop() {
-        return calcCrop;
+    public Crop getCrop() {
+        return crop;
     }
 
-    public void setCalcCrop(Crop calcCrop) {
-        this.calcCrop = calcCrop;
+    public void setCrop(Crop crop) {
+        this.crop = crop;
     }
 
     public Fertilizer getFert() {
@@ -72,7 +73,8 @@ public class CalcCropFertilizerRatio extends BaseDaoEnabled implements Serializa
      */
     public void changeAmtToKgsPerAcre() {
         if (!is_converted) {
-            this.setAmt(getAmt() / ACRE);
+            //this.setAmt(getAmt() / ACRE);
+            this.setAmt(getAmt() /FragmentNewCalculation.ACRE);
             is_converted = true;
         }
     }

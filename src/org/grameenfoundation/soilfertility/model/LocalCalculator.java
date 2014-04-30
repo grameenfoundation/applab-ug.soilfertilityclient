@@ -21,6 +21,9 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.params.BasicHttpParams;
+import org.apache.http.params.HttpConnectionParams;
+import org.apache.http.params.HttpParams;
 import org.apache.http.util.EntityUtils;
 import org.grameenfoundation.soilfertility.dataaccess.DatabaseHelper;
 import org.grameenfoundation.soilfertility.ui.CalculationResults;
@@ -54,8 +57,8 @@ import java.util.logging.Logger;
 public class LocalCalculator extends AsyncTask<Calc, Void, Calc> {
 
     // Network connection and read timeout (in milliseconds)
+    public static final int SOCKET_TIMEOUT = 180 * 1000;
     public static final int NETWORK_TIMEOUT = 30 * 1000;
-    private Calc details;
     private Context context;
     private ProgressDialog mDialog;
     private String url;
@@ -88,7 +91,19 @@ public class LocalCalculator extends AsyncTask<Calc, Void, Calc> {
                     Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
                     String json = gson.toJson(details);
 
-                    HttpClient httpclient = new DefaultHttpClient();
+                    final HttpParams httpParams = new BasicHttpParams();
+
+                    // Sets the timeout until a connection is etablished.
+                    // A value of zero means the timeout is not used. The default value is zero.
+                    HttpConnectionParams.setConnectionTimeout(httpParams, NETWORK_TIMEOUT);
+
+                    // Sets the default socket timeout (SO_TIMEOUT) in milliseconds
+                    // which is the timeout for waiting for data.
+                    // A timeout value of zero is interpreted as an infinite timeout.
+                    // This value is used when no socket timeout is set in the method parameters.
+                    HttpConnectionParams.setSoTimeout(httpParams, SOCKET_TIMEOUT);
+
+                    HttpClient httpclient = new DefaultHttpClient(httpParams);
                     HttpPost httppost = getHttpPost(json);
 
                     HttpResponse esponseBody = httpclient.execute(httppost);
@@ -157,7 +172,7 @@ public class LocalCalculator extends AsyncTask<Calc, Void, Calc> {
             } else {
                 getHelper().getCalculationsDataDao().update(calculation);
             }
-            saveReferenceForTransientObjects(details);
+            saveReferenceForTransientObjects(calculation);
         } catch (SQLException e) {
             Log.e(getClass().getSimpleName(), "Database exception", e);
         }

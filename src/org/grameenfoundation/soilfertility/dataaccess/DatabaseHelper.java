@@ -2,9 +2,10 @@ package org.grameenfoundation.soilfertility.dataaccess;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.dao.Dao;
+import com.j256.ormlite.logger.Logger;
+import com.j256.ormlite.logger.LoggerFactory;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 import org.grameenfoundation.soilfertility.model.*;
@@ -19,6 +20,8 @@ import java.sql.SQLException;
  * the DAOs used by the other classes.
  */
 public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
+
+    private Logger log = LoggerFactory.getLogger(this.getClass());
 
     private static final String DATABASE_NAME = "soilFertility.db";
     // any time changes are made to database objects, the database version has to be increased
@@ -44,7 +47,8 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase, ConnectionSource connectionSource) {
         try {
-            Log.i(DatabaseHelper.class.getName(), "onCreate");
+            //Log.i(DatabaseHelper.class.getName(), "onCreate");
+            log.info("onCreate");
             TableUtils.createTable(connectionSource, Crop.class);
             TableUtils.createTable(connectionSource, Fertilizer.class);
             TableUtils.createTable(connectionSource, CalcCrop.class);
@@ -56,7 +60,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
             //insert default fertilizers
             insertDefaultFertilizers();
         } catch (SQLException e) {
-            Log.e(DatabaseHelper.class.getName(), "Can't create database", e);
+            log.error("Can't create database", e);
             throw new RuntimeException(e);
         }
     }
@@ -99,7 +103,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, ConnectionSource connectionSource, int i, int i2) {
         try {
-            Log.i(DatabaseHelper.class.getName(), "onUpgrade");
+            log.info("onUpgrade");
             TableUtils.dropTable(connectionSource, Crop.class, true);
             TableUtils.dropTable(connectionSource, Fertilizer.class, true);
             TableUtils.dropTable(connectionSource, CalcCrop.class, true);
@@ -109,7 +113,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
             // after we drop the old databases, we create the new ones
             onCreate(sqLiteDatabase, connectionSource);
         } catch (SQLException e) {
-            Log.e(DatabaseHelper.class.getName(), "Can't drop databases", e);
+            log.error("Can't drop databases", e);
             throw new RuntimeException(e);
         }
     }
