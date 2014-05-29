@@ -1,5 +1,6 @@
 package org.grameenfoundation.soilfertility.ui;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,6 +16,7 @@ import org.grameenfoundation.soilfertility.R;
 import org.grameenfoundation.soilfertility.dataaccess.DatabaseHelper;
 import org.grameenfoundation.soilfertility.model.Calc;
 import org.grameenfoundation.soilfertility.model.CalcAdapter;
+import org.grameenfoundation.soilfertility.model.LocalCalculator;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -85,9 +87,18 @@ public class FragmentPreviousCalculations extends SherlockListFragment implement
             Calc detail = (Calc) v.getTag();
             if (detail != null) {
                 detail = getHelper().getCalculationsDataDao().queryForSameId(detail);
-                Intent resultsIntent = new Intent(getSherlockActivity(), CalculationResults.class);
-                resultsIntent.putExtra("result", detail);
-                getSherlockActivity().startActivity(resultsIntent);
+                if(detail != null && !detail.isSolved()){
+                    //was saved without being solved. Solve
+                    String url = getSherlockActivity().getSharedPreferences("preferences.xml",
+                            Context.MODE_MULTI_PROCESS).getString("url", FragmentNewCalculation.DEFAULT_URL);
+                    LocalCalculator calculator = new LocalCalculator(getSherlockActivity(), url);
+                    calculator.execute(detail);
+                }
+                else {
+                    Intent resultsIntent = new Intent(getSherlockActivity(), CalculationResults.class);
+                    resultsIntent.putExtra("result", detail);
+                    getSherlockActivity().startActivity(resultsIntent);
+                }
             }
         } catch (SQLException e) {
             Toast.makeText(getSherlockActivity(), "error retrieving record", Toast.LENGTH_SHORT).show();

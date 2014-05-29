@@ -14,6 +14,8 @@ import org.grameenfoundation.soilfertility.model.CalcCrop;
 import org.grameenfoundation.soilfertility.model.CalcCropFertilizerRatio;
 import org.grameenfoundation.soilfertility.model.CalcFertilizer;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.DecimalFormat;
 
 /**
@@ -61,12 +63,8 @@ public class CalculationResults extends SherlockFragmentActivity {
             lbl_total_net_returns_on_investiment.setText(formatter.format(net_returns));
 
             populateCropsTable();
-
             populateFertilizersTable();
-
         }
-
-
     }
 
     /**
@@ -172,7 +170,7 @@ public class CalculationResults extends SherlockFragmentActivity {
                 txt_area.setId(new_row_id_multiplier++);
                 // long area = Math.round(calcCrop.getArea());
                 // txt_area.setText(formatter.format(area));
-                txt_area.setText(calcCrop.getArea().toString());
+                txt_area.setText(round(calcCrop.getAreaInAcres(), 1).toString());
 
                 //column price
                 TextView txt_price = (TextView) new_row.findViewById(R.id.crop_price);
@@ -200,13 +198,27 @@ public class CalculationResults extends SherlockFragmentActivity {
             txt_name.setText(cf.getFertilizer().getName());
 
             //column price
-            TextView txt_price = (TextView) new_row.findViewById(R.id.crop_price);
+            TextView txt_price = (TextView) new_row.findViewById(R.id.fertilizer_price_per_50_kgs);
             txt_price.setId(new_row_id_multiplier++);
-            txt_price.setText(cf.getPrice());
+            txt_price.setText(formatter.format(cf.getPrice()));
 
             //add row
             table_fertilizers.addView(new_row);
         }
+    }
+
+    /**
+     * custom rounding method
+     * @param value     figure to round
+     * @param places    how many decimal places
+     * @return          rounded value
+     */
+    public static Double round(double value, int places) {
+        if (places < 0)
+            throw new IllegalArgumentException();
+        BigDecimal bd = new BigDecimal(value);
+        bd = bd.setScale(places, RoundingMode.HALF_UP);
+        return bd.doubleValue();
     }
 
     /**

@@ -8,7 +8,7 @@
             android:id="@+id/crop_name"
             android:layout_width="0px"
             android:layout_height="wrap_content"
-            android:layout_weight="0.4"
+            android:layout_weight="0.3"
             android:layout_marginLeft="5dip"
             android:background="#e6e6e6" android:layout_margin="1dip"/>
     <TextView
@@ -22,7 +22,7 @@
             android:id="@+id/crop_price"
             android:layout_width="0px"
             android:layout_height="wrap_content"
-            android:layout_weight="0.3"
+            android:layout_weight="0.4"
             android:layout_marginLeft="5dip"
             android:background="#e6e6e6" android:layout_margin="1dip"/>
 </TableRow>

@@ -31,7 +31,7 @@ public class CalcFertilizer extends BaseDaoEnabled implements Serializable {
     @DatabaseField
     @Expose
     @SerializedName("Price")
-    private int price;
+    private Integer price;
 
     @DatabaseField
     @Expose
@@ -62,7 +62,7 @@ public class CalcFertilizer extends BaseDaoEnabled implements Serializable {
         this.fertilizer = fertilizer;
     }
 
-    public int getPrice() {
+    public Integer getPrice() {
         return price;
     }
 

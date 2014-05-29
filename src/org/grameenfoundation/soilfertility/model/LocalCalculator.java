@@ -1,5 +1,6 @@
 package org.grameenfoundation.soilfertility.model;
 
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -10,6 +11,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.provider.Settings;
 import android.util.Log;
+import android.widget.Toast;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSyntaxException;
@@ -27,6 +29,7 @@ import org.apache.http.params.HttpParams;
 import org.apache.http.util.EntityUtils;
 import org.grameenfoundation.soilfertility.dataaccess.DatabaseHelper;
 import org.grameenfoundation.soilfertility.ui.CalculationResults;
+import org.grameenfoundation.soilfertility.ui.FragmentNewCalculation;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
@@ -78,13 +81,13 @@ public class LocalCalculator extends AsyncTask<Calc, Void, Calc> {
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        mDialog = ProgressDialog.show(context, null, "optimising, please wait...", true, false);
-        mDialog.setCancelable(true);
+        mDialog = ProgressDialog.show(context, null, "optimising, please wait...", true, true);
     }
 
     @Override
     protected Calc doInBackground(Calc... params) {
         Calc details = params[0];
+        Calc solution = details;
         try {
             try {
                 if (checkInternetConnection()) {
@@ -110,12 +113,18 @@ public class LocalCalculator extends AsyncTask<Calc, Void, Calc> {
                     String response = EntityUtils.toString(esponseBody.getEntity());
                     response = extractJsonResponse(response);
 
-                    details = gson.fromJson(response, Calc.class);
+                    solution = gson.fromJson(response, Calc.class);
                     Message message = Message.obtain(handler);
                     message.obj = "preparing...";
                     handler.sendMessage(message);
-                    if (details != null) {
-                        details.setSolved(true);
+                    if (solution != null) {
+                        solution.setSolved(true);
+                        details = solution;
+                    }
+                    else {
+                        Message message1 = Message.obtain(handler);
+                        message1.obj = "Try again later. No response from server";
+                        handler.sendMessage(message1);
                     }
                 } else {
                     Message message = Message.obtain(handler);
@@ -159,6 +168,9 @@ public class LocalCalculator extends AsyncTask<Calc, Void, Calc> {
             saveOrUpdateCalculation(details);
             if (mDialog.isShowing()) {
                 mDialog.dismiss();
+            }
+            if(!details.isSolved()) {
+
             }
         }
         return details;
@@ -234,6 +246,7 @@ public class LocalCalculator extends AsyncTask<Calc, Void, Calc> {
         @Override
         public void handleMessage(Message msg) {
             mDialog.setMessage((String) msg.obj);
+            removeMessages(0);
         }
     };
 

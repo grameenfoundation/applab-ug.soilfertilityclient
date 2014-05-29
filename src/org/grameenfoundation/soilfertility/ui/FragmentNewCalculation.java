@@ -38,6 +38,7 @@ public class FragmentNewCalculation extends SherlockFragment {
     private EditText txt_farmer_name;
     private TableLayout table_crops;
     private TableLayout table_fertilizers;
+    private View view;
 
     private List<Crop> lst_crops;
     private List<Crop> lst_selected_crops = new ArrayList<Crop>();
@@ -56,8 +57,9 @@ public class FragmentNewCalculation extends SherlockFragment {
     private int id_count_crop_rows = 2000;
     private int id_count_fertilizers_rows = 3000;
 
-    private static final Double HACTARE = 0.404686;
+    public static final Double HACTARE = 0.404686;
     public static final Double ACRE = 2.4711;
+    public static final String DEFAULT_URL = "http://212.88.100.70:8888/Service1.asmx/Optimize";
     // private static final Double ACRE = 2.47105;
 
     private DatabaseHelper databaseHelper = null;
@@ -66,7 +68,7 @@ public class FragmentNewCalculation extends SherlockFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        final View view = inflater.inflate(R.layout.fragment_new_calculation, container, false);
+        view = inflater.inflate(R.layout.fragment_new_calculation, container, false);
 
         setRetainInstance(true);
         Spinner lstbox_crops = (Spinner) view.findViewById(R.id.cmb_crops);
@@ -193,7 +195,7 @@ public class FragmentNewCalculation extends SherlockFragment {
         try {
             validate();
             String url = getSherlockActivity().getSharedPreferences("preferences.xml",
-                    Context.MODE_MULTI_PROCESS).getString("url", "http://212.88.100.70:8888/Service1.asmx/Optimize");
+                    Context.MODE_MULTI_PROCESS).getString("url", DEFAULT_URL);
             calculator = new LocalCalculator(view.getContext(), url);
             Calc details = new Calc();
             List<CalcCrop> calcCrops = new ArrayList<CalcCrop>();

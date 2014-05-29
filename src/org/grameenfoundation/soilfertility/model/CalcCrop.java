@@ -5,6 +5,7 @@ import com.google.gson.annotations.SerializedName;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.misc.BaseDaoEnabled;
 import com.j256.ormlite.table.DatabaseTable;
+import org.grameenfoundation.soilfertility.ui.FragmentNewCalculation;
 
 import java.io.Serializable;
 
@@ -67,6 +68,10 @@ public class CalcCrop extends BaseDaoEnabled implements Serializable {
 
     public Double getArea() {
         return area;
+    }
+
+    public Double getAreaInAcres() {
+        return area * FragmentNewCalculation.ACRE;
     }
 
     public void setArea(Double area) {

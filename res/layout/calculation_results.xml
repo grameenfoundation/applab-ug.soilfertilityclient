@@ -208,29 +208,29 @@
                       android:layout_marginLeft="1dip"
                       android:layout_marginRight="1dip">
 
-                <TextView android:padding="5dp"
-                          android:id="@+id/table_coulumn1"
-                          android:layout_width="0px"
-                          android:layout_height="match_parent"
-                          android:text="@string/title_crop"
-                          android:layout_weight="0.3"
-                          style="@style/table_header_bg"
-                          android:gravity="center_vertical"/>
+                <!--<TextView android:padding="5dp"-->
+                          <!--android:id="@+id/table_coulumn1"-->
+                          <!--android:layout_width="0px"-->
+                          <!--android:layout_height="match_parent"-->
+                          <!--android:text="@string/title_crop"-->
+                          <!--android:layout_weight="0.3"-->
+                          <!--style="@style/table_header_bg"-->
+                          <!--android:gravity="center_vertical"/>-->
 
                 <TextView android:padding="5dp"
                           android:id="@+id/textView1"
                           android:layout_width="0px"
                           android:layout_height="match_parent"
-                          android:text="@string/title_landsize"
-                          android:layout_weight="0.3"
+                          android:text="@string/title_fertilizer"
+                          android:layout_weight="0.4"
                           style="@style/table_header_bg"
                           android:gravity="center_vertical|center_horizontal"/>
                 <TextView android:padding="5dp"
                           android:id="@+id/textView1"
                           android:layout_width="0px"
                           android:layout_height="match_parent"
-                          android:text="@string/title_profitkgs"
-                          android:layout_weight="0.4"
+                          android:text="@string/title_price_per_bag"
+                          android:layout_weight="0.3"
                           style="@style/table_header_bg"
                           android:gravity="center_vertical|center_horizontal"/>
 
