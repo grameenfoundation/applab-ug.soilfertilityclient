@@ -1,6 +1,6 @@
 bin/*
 out/*
-/gen
+gen/
 .idea/
 .idea/ant.xml
 .idea/compiler.xml
