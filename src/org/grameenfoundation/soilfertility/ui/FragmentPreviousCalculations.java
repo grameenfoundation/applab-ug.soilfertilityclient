@@ -4,13 +4,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ListView;
-import android.widget.Toast;
+import android.widget.*;
 import com.actionbarsherlock.app.SherlockListFragment;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
+import com.actionbarsherlock.view.MenuItem;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import org.grameenfoundation.soilfertility.R;
 import org.grameenfoundation.soilfertility.dataaccess.DatabaseHelper;
@@ -31,20 +33,43 @@ public class FragmentPreviousCalculations extends SherlockListFragment implement
 
     private DatabaseHelper databaseHelper = null;
     private final String LOG_TAG = getClass().getSimpleName();
+    private List<Calc> items;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         try {
-            List<Calc> items = getHelper().getCalculationsDataDao().queryBuilder().orderBy("dateCreated", false).query();
+            items = getHelper().getCalculationsDataDao().queryBuilder().orderBy("dateCreated", false).query();
             CalcAdapter adapter = new CalcAdapter(getSherlockActivity(), R.layout.list_item_calculations, items);
             setListAdapter(adapter);
-            //return super.onCreateView(inflater, container, savedInstanceState);
         } catch (SQLException e) {
             Log.e(LOG_TAG, "Database exception", e);
         }
-        return inflater.inflate(R.layout.fragment_previous_calculations, container, false);
+        View view = inflater.inflate(R.layout.fragment_previous_calculations, container, false);
+        //ListView list_view = (ListView)view.findViewById(R.id.list);
+        //TODO: create menu to delete item
+        //registerForContextMenu(list_view);
+        return view;
     }
+
+//    @Override
+//    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+//        super.onCreateContextMenu(menu, v, menuInfo);
+//        menu.setHeaderTitle(getString(R.string.menu_context_title));
+//        MenuInflater inflater = getSherlockActivity().getSupportMenuInflater();
+//        inflater.inflate(R.menu.delete_calculation, (Menu) menu);
+//    }
+//
+////    @Override
+//    public boolean onContextItemSelected(MenuItem item) {
+//        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo)item.getMenuInfo();
+//        int menuItemIndex = item.getItemId();
+//        String[] menuItems = getResources().getStringArray(R.menu.delete_calculation);
+//        String menuItemName = menuItems[menuItemIndex];
+//
+//
+//        return true;
+//    }
 
     /**
      * gets the helper from the manager
@@ -74,6 +99,14 @@ public class FragmentPreviousCalculations extends SherlockListFragment implement
     public void onResume() {
         //This should run when the fragment returns from backstack
         super.onResume();
+        try {
+            items = getHelper().getCalculationsDataDao().queryBuilder().orderBy("dateCreated", false).query();
+            CalcAdapter adapter = new CalcAdapter(getSherlockActivity(), R.layout.list_item_calculations, items);
+            setListAdapter(adapter);
+            //return super.onCreateView(inflater, container, savedInstanceState);
+        } catch (SQLException e) {
+            Log.e(LOG_TAG, "Database exception", e);
+        }
     }
 
     @Override

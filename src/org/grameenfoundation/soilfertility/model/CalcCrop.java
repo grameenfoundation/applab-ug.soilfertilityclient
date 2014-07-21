@@ -109,4 +109,14 @@ public class CalcCrop extends BaseDaoEnabled implements Serializable {
     public void setCalculation(Calc calculation) {
         this.calculation = calculation;
     }
+
+    /**
+     * returns the ratio of this crops land size in relation to
+     * the total land size
+     * @param totalLandSize the total land size
+     * @return              the ration
+     */
+    public Double getLandRatio(Double totalLandSize){
+        return getArea() / totalLandSize;
+    }
 }

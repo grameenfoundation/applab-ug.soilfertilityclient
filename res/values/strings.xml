@@ -32,13 +32,14 @@
     <string name="lbl_btn_calculate">Calculate</string>
     <string name="results_title">Fertilizer optimization</string>
     <string name="header_crop_fertilizer_ratio">Application Rate-kg/Acre</string>
-    <string name="results_label_total_fertilizer">Total fertilizer needed</string>
+    <string name="results_label_total_fertilizer">Total fertilizer needed in an Acre</string>
     <string name="title_yield_increase">Yield Increases</string>
     <string name="title_net_returns">Net Returns</string>
     <string name="results_label_expected_averages">Expected Average Effects per Acre</string>
     <string name="results_label_net_returns">Total net returns to investiment in fertilizer</string>
     <string name="hint_crop_price_per_kg">price/Kg</string>
     <string name="hint_price_per_bag">price/50kg bag</string>
+    <string name="menu_context_title">delete?</string>
 
     <style name="invisible_buttons_text">
         <item name="android:textColor">#999999</item>

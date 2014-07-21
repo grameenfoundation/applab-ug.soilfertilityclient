@@ -9,14 +9,13 @@ import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import org.grameenfoundation.soilfertility.R;
 import org.grameenfoundation.soilfertility.dataaccess.DatabaseHelper;
-import org.grameenfoundation.soilfertility.model.Calc;
-import org.grameenfoundation.soilfertility.model.CalcCrop;
-import org.grameenfoundation.soilfertility.model.CalcCropFertilizerRatio;
-import org.grameenfoundation.soilfertility.model.CalcFertilizer;
+import org.grameenfoundation.soilfertility.model.*;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * Copyright (c) 2013 AppLab, Grameen Foundation
@@ -34,6 +33,7 @@ public class CalculationResults extends SherlockFragmentActivity {
     private TableLayout table_crops, table_fertilizers;
 
     private TextView lbl_total_net_returns_on_investiment;
+    private TextView lbl_input_amount_available;
     private int new_row_id_multiplier = 1;
     private final DecimalFormat formatter = new DecimalFormat("#,###");
     private final String LOG_TAG = getClass().getSimpleName();
@@ -52,6 +52,7 @@ public class CalculationResults extends SherlockFragmentActivity {
         table_fertilizers = (TableLayout) findViewById(R.id.table_fertilisers);
 
         lbl_total_net_returns_on_investiment = (TextView) findViewById(R.id.lbl_total_net_returns_on_investiment);
+        lbl_input_amount_available = (TextView) findViewById(R.id.lbl_input_amount_available);
         results = (Calc) getIntent().getSerializableExtra("result");
         if (results != null) {
             //populate tables
@@ -64,13 +65,18 @@ public class CalculationResults extends SherlockFragmentActivity {
 
             populateCropsTable();
             populateFertilizersTable();
+            lbl_input_amount_available.setText("Amount available:  " + formatter.format(results.getAmtAvailable()));
         }
     }
 
     /**
-     * render crop fertilizer ratios in table layout
+     * render crop fertilizer application rate in table layout
+     * the passed calculation results have the application rate in kg/Hactare
+     * of fertilizers for each crop selected. this rate is converted to kg/acre
+     * before display
      */
     private void populateCropFertilzerRatiosTable() {
+        try {
             LayoutInflater inflater = getLayoutInflater();
 
             for (CalcCropFertilizerRatio ratio : results.getCropFerts()) {
@@ -88,19 +94,27 @@ public class CalculationResults extends SherlockFragmentActivity {
                 //column ratio
                 TextView txt_ratio = (TextView) new_row.findViewById(R.id.result_ratio_rate_row);
                 txt_ratio.setId(new_row_id_multiplier++);
-                long ration = Math.round(ratio.getAmt());
-                txt_ratio.setText(formatter.format(ration));
+                //Double landRation = getLandRatioOfCrop(crops, ratio.getCrop(), totalLandSize);
+                //Double ration = round(ratio.getAmt() * landRation / FragmentNewCalculation.ACRE, 1);
+                Double ration = round(getFertilizerRatioForCrop(results, ratio), 1);
+                txt_ratio.setText(ration.toString());
                 //add row if ratio is not zero
                 if (ratio.getAmt() > 0) {
                     table_ratios.addView(new_row);
                 }
             }
+        } catch (Exception e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
     }
 
     /**
      * render total fertilizer figures in table layout
+     * the calculation object passed to this activity as an extra
+     * has these values. Here we just add table rows to the UI table
      */
     private void populateCropTotalFertilzersTable() {
+        try {
             LayoutInflater inflater = getLayoutInflater();
 
             for (CalcFertilizer calcFertilizer : results.getCalcFertilizers()) {
@@ -114,17 +128,23 @@ public class CalculationResults extends SherlockFragmentActivity {
                 //column amount-need
                 TextView txt_amount = (TextView) new_row.findViewById(R.id.results_row_total_fertilzer_value_row);
                 txt_amount.setId(new_row_id_multiplier++);
-                long total = Math.round(calcFertilizer.getTotalRequired());
-                txt_amount.setText(formatter.format(total));
+                Double total = round(calcFertilizer.getTotalRequired() / FragmentNewCalculation.ACRE, 1);
+                txt_amount.setText(total.toString());
                 //add row
                 table_total_fertilizer.addView(new_row);
             }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**
-     * render expected total returns in table layout
+     * for each crop selected, there is an expected yield increase per hactare
+     * and net returns per hactare. here, we render these values upon conversion to
+     * per acre
      */
     private void populateExpectedEffectsTable() {
+        try {
             LayoutInflater inflater = getLayoutInflater();
 
             for (CalcCrop calcCrop : results.getCalcCrops()) {
@@ -138,21 +158,27 @@ public class CalculationResults extends SherlockFragmentActivity {
                 //column yield
                 TextView txt_yield = (TextView) new_row.findViewById(R.id.resultrow_effects_yield_column);
                 txt_yield.setId(new_row_id_multiplier++);
-                long yield = Math.round(calcCrop.getYieldIncrease());
+                long yield = Math.round(calcCrop.getYieldIncrease() / FragmentNewCalculation.ACRE);
                 txt_yield.setText(formatter.format(yield));
                 //column returns
                 TextView txt_returns = (TextView) new_row.findViewById(R.id.resultrow_effects_returns_column);
                 txt_returns.setId(new_row_id_multiplier++);
-                long retunrns = Math.round(calcCrop.getNetReturns());
+                long retunrns = Math.round(calcCrop.getNetReturns() / FragmentNewCalculation.ACRE);
                 txt_returns.setText(formatter.format(retunrns));
                 //add row
                 table_expected_effects.addView(new_row);
             }
-            //table_ratios.invalidate();
-            //table_ratios.requestLayout();
+        } catch (Exception e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
     }
 
+    /**
+     * displays the user's input showing the land size and expected crop profit
+     * for each of the selected crops
+     */
     private void populateCropsTable(){
+        try {
             LayoutInflater inflater = getLayoutInflater();
 
             for (CalcCrop calcCrop : results.getCalcCrops()) {
@@ -170,7 +196,7 @@ public class CalculationResults extends SherlockFragmentActivity {
                 txt_area.setId(new_row_id_multiplier++);
                 // long area = Math.round(calcCrop.getArea());
                 // txt_area.setText(formatter.format(area));
-                txt_area.setText(round(calcCrop.getAreaInAcres(), 1).toString());
+                txt_area.setText(truncate(calcCrop.getAreaInAcres(), 5).toString());
 
                 //column price
                 TextView txt_price = (TextView) new_row.findViewById(R.id.crop_price);
@@ -182,29 +208,86 @@ public class CalculationResults extends SherlockFragmentActivity {
                 //add row
                 table_crops.addView(new_row);
             }
+        } catch (Exception e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
     }
 
+    /**
+     * displays user's input showing the available price/50kg bag of
+     * each of the selected fertilizer
+     */
     private void populateFertilizersTable(){
-        LayoutInflater inflater = getLayoutInflater();
+        try {
+            LayoutInflater inflater = getLayoutInflater();
 
-        for (CalcFertilizer cf : results.getCalcFertilizers()) {
-            //create a new row for ratios
-            TableRow new_row = (TableRow) inflater.inflate(R.layout.new_resultrow_fertilizer, table_fertilizers, false);
-            //new_row.setId(new_row_id_multiplier++);
+            for (CalcFertilizer cf : results.getCalcFertilizers()) {
+                //create a new row for ratios
+                TableRow new_row = (TableRow) inflater.inflate(R.layout.new_resultrow_fertilizer, table_fertilizers, false);
+                //new_row.setId(new_row_id_multiplier++);
 
-            //column calcFertilizer
-            TextView txt_name = (TextView) new_row.findViewById(R.id.fertilizer_name);
-            txt_name.setId(new_row_id_multiplier++);
-            txt_name.setText(cf.getFertilizer().getName());
+                //column calcFertilizer
+                TextView txt_name = (TextView) new_row.findViewById(R.id.fertilizer_name);
+                txt_name.setId(new_row_id_multiplier++);
+                txt_name.setText(cf.getFertilizer().getName());
 
-            //column price
-            TextView txt_price = (TextView) new_row.findViewById(R.id.fertilizer_price_per_50_kgs);
-            txt_price.setId(new_row_id_multiplier++);
-            txt_price.setText(formatter.format(cf.getPrice()));
+                //column price
+                TextView txt_price = (TextView) new_row.findViewById(R.id.fertilizer_price_per_50_kgs);
+                txt_price.setId(new_row_id_multiplier++);
+                txt_price.setText(formatter.format(cf.getPrice()));
 
-            //add row
-            table_fertilizers.addView(new_row);
+                //add row
+                table_fertilizers.addView(new_row);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
+    }
+
+    /**
+     * searches for a given calc-crop and returns the land ration for the crop
+     * it represents
+     *
+     * @param crops         a list of crops details
+     * @param crop          a crop whose ration is required
+     * @param totalSize     the total land size to have the ratio against
+     * @return              land ratio for the given crop
+     */
+    public static Double getLandRatioOfCrop(Collection<CalcCrop> crops, Crop crop, Double totalSize){
+        for (CalcCrop calcCrop : crops){
+            if(calcCrop.getCrop().getName().equals(crop.getName())){
+                return calcCrop.getLandRatio(totalSize);
+            }
+        }
+        return null;
+    }
+
+    public static Double getFertilizerRatioForCrop(Calc results, CalcCropFertilizerRatio crop) {
+        Double totalLandSize = results.getTotalLandSize();
+        Collection<CalcCrop> crops = results.getCalcCrops();
+
+        Double landRatio = 0d;
+        //get this crop's land ratio
+        for (CalcCrop calcCrop : crops){
+            if(calcCrop.getCrop().getName().equals(crop.getCrop().getName())){
+                landRatio = calcCrop.getLandRatio(totalLandSize);
+                break;
+            }
+        }
+        //multiply land ratio by total fertilizer to get how much fertilizer the crop needs
+        //But first, get the fertilizer
+        CalcFertilizer fertilizer = null;
+        for (CalcFertilizer calcFertilizer : results.getCalcFertilizers()) {
+            if(calcFertilizer.getFertilizer().getName().equals(crop.getFert().getName())){
+                fertilizer = calcFertilizer;
+                break;
+            }
+        }
+        if(fertilizer != null) {
+            //lastly, convert to per Acre
+            return  (fertilizer.getTotalRequired() * landRatio) / FragmentNewCalculation.ACRE;
+        }
+        return 0d;
     }
 
     /**
@@ -219,6 +302,23 @@ public class CalculationResults extends SherlockFragmentActivity {
         BigDecimal bd = new BigDecimal(value);
         bd = bd.setScale(places, RoundingMode.HALF_UP);
         return bd.doubleValue();
+    }
+
+    /**
+     * truncates a figure
+     * @param value      figure to undergo truncation
+     * @param places     decimal places to be returned
+     * @return           truncated value
+     */
+    public static Double truncate(double value, int places) {
+        if (places < 0) {
+            throw new IllegalArgumentException();
+        }
+
+        long factor = (long) Math.pow(10, places);
+        value = value * factor;
+        long tmp = (long) value;
+        return (double) tmp / factor;
     }
 
     /**

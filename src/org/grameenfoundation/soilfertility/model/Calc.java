@@ -176,4 +176,16 @@ public class Calc extends BaseDaoEnabled implements Serializable {
     public void setSolved(boolean solved) {
         this.solved = solved;
     }
+
+    /**
+     * returns the total land size for all crops
+     * @return  total land size
+     */
+    public Double getTotalLandSize(){
+        Double total = 0d;
+        for(CalcCrop crop: getCalcCrops()){
+            total += crop.getArea();
+        }
+        return  total;
+    }
 }

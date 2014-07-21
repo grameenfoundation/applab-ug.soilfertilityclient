@@ -58,7 +58,7 @@ public class FragmentNewCalculation extends SherlockFragment {
     private int id_count_fertilizers_rows = 3000;
 
     public static final Double HACTARE = 0.404686;
-    public static final Double ACRE = 2.4711;
+    public static final Double ACRE = 2.47105;
     public static final String DEFAULT_URL = "http://212.88.100.70:8888/Service1.asmx/Optimize";
     // private static final Double ACRE = 2.47105;
 
@@ -489,9 +489,12 @@ public class FragmentNewCalculation extends SherlockFragment {
             CheckedTextView selectedFertilizer = (CheckedTextView) lstbox_next_fertilizer.getChildAt(0);
 
             //fertilizer
-            String name = selectedFertilizer.getText().toString();
-            Fertilizer fertilizer = getHelper().getFertilizerDataDao().queryForSameId(new Fertilizer(name));
-            fertilizers.add(fertilizer);
+            CharSequence name_field = selectedFertilizer == null ? null : selectedFertilizer.getText();
+            if(name_field != null) {
+                String name = name_field.toString();
+                Fertilizer fertilizer = getHelper().getFertilizerDataDao().queryForSameId(new Fertilizer(name));
+                fertilizers.add(fertilizer);
+            }
         }
 
         return fertilizers;
@@ -689,9 +692,12 @@ public class FragmentNewCalculation extends SherlockFragment {
             CheckedTextView selectedCrop = (CheckedTextView) lstbox_next_crop.getChildAt(0);
 
             // crop
-            String name = selectedCrop.getText().toString();
-            Crop crop = getHelper().getCropDataDao().queryForSameId(new Crop(name));
-            crops.add(crop);
+            CharSequence name_field = selectedCrop == null ? null : selectedCrop.getText();
+            if(name_field != null) {
+                String name = name_field.toString();
+                Crop crop = getHelper().getCropDataDao().queryForSameId(new Crop(name));
+                crops.add(crop);
+            }
         }
 
         return crops;
@@ -718,8 +724,8 @@ public class FragmentNewCalculation extends SherlockFragment {
      * @return hectares in the provided acres
      */
     private Double changeAcresToHectares(Double acres) {
-        // return acres * HACTARE;
-        return acres / ACRE;
+        return acres * HACTARE;
+        // return acres / ACRE;
     }
 
     /**

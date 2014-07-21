@@ -153,10 +153,6 @@ public class LocalCalculator extends AsyncTask<Calc, Void, Calc> {
 
             //pass results to the display activity
             if (details.isSolved()) {
-                //we change ratios from Kg/Ha to Kg/Acre
-                for (CalcCropFertilizerRatio ratio : details.getCropFerts()) {
-                    ratio.changeAmtToKgsPerAcre();
-                }
                 // TODO ensure prevention of duplicate requests creating multiple logs
 
                 Intent resultsIntent = new Intent(context, CalculationResults.class);
@@ -271,7 +267,7 @@ public class LocalCalculator extends AsyncTask<Calc, Void, Calc> {
         response = nodes.item(0).getTextContent();
 
         Logger.getAnonymousLogger().log(Level.WARNING, "json follows:");
-        Logger.getAnonymousLogger().log(Level.WARNING, response);
+        Logger.getAnonymousLogger().log(Level.WARNING, response == null? "" : response);
         return response;
     }
 
