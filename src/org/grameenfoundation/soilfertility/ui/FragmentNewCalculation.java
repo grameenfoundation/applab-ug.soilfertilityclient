@@ -1,8 +1,10 @@
 package org.grameenfoundation.soilfertility.ui;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentTabHost;
 import android.telephony.TelephonyManager;
 import android.util.Log;
@@ -194,8 +196,10 @@ public class FragmentNewCalculation extends SherlockFragment {
     private void btnCalculateClicked(View view) {
         try {
             validate();
-            String url = getSherlockActivity().getSharedPreferences("preferences.xml",
-                    Context.MODE_MULTI_PROCESS).getString("url", DEFAULT_URL);
+//            String url = getSherlockActivity().getSharedPreferences("preferences.xml",
+//                    Context.MODE_MULTI_PROCESS).getString("url", DEFAULT_URL);
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getSherlockActivity().getBaseContext());
+            String url = preferences.getString("url", FragmentNewCalculation.DEFAULT_URL);
             calculator = new LocalCalculator(view.getContext(), url);
             Calc details = new Calc();
             List<CalcCrop> calcCrops = new ArrayList<CalcCrop>();
@@ -723,7 +727,7 @@ public class FragmentNewCalculation extends SherlockFragment {
      * @param acres the acres to be converted
      * @return hectares in the provided acres
      */
-    private Double changeAcresToHectares(Double acres) {
+    public static Double changeAcresToHectares(Double acres) {
         return acres * HACTARE;
         // return acres / ACRE;
     }

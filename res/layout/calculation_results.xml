@@ -13,11 +13,47 @@
                 android:gravity="left"
                 android:text="@string/results_title"
                 style="@style/labels_bold"/>
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                      android:layout_width="fill_parent"
+                      android:layout_height="match_parent"
+                      android:orientation="vertical"
+                      android:id="@+id/linear_choose_units"
+                      android:layout_below="@id/results_header">
+            <TextView
+                    android:id="@+id/results_land_units"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/results_land_units_prompt"
+                    style="@style/labels_bold"
+                    />
+        <RadioGroup
+                android:id="@+id/radioResultLandUnits"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+            <RadioButton
+                    android:id="@+id/radioAcres"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/results_land_units_acres"
+                    android:checked="true" />
+
+            <RadioButton
+                    android:id="@+id/radioHectares"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/results_land_units_hectares" />
+
+        </RadioGroup>
+        </LinearLayout>
+
         <TableLayout
                 android:id="@+id/table_crop_feertilzer_ration"
                 android:layout_width="match_parent"
                 android:layout_height="fill_parent"
-                android:layout_below="@id/results_header"
+                android:layout_below="@id/linear_choose_units"
                 android:layout_marginTop="5dip">
             <TableRow
                     android:id="@+id/results_row_header_ratios"
@@ -173,7 +209,7 @@
                           android:gravity="center_vertical"/>
 
                 <TextView android:padding="5dp"
-                          android:id="@+id/textView1"
+                          android:id="@+id/labelLandSize"
                           android:layout_width="0px"
                           android:layout_height="match_parent"
                           android:text="@string/title_landsize"
@@ -181,7 +217,7 @@
                           style="@style/table_header_bg"
                           android:gravity="center_vertical|center_horizontal"/>
                 <TextView android:padding="5dp"
-                          android:id="@+id/textView1"
+                          android:id="@+id/labelProfitKgs"
                           android:layout_width="0px"
                           android:layout_height="match_parent"
                           android:text="@string/title_profitkgs"

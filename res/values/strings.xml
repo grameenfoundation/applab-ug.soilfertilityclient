@@ -18,6 +18,7 @@
 
     <string name="title_crop">Crop</string>
     <string name="title_landsize">Land Size\n(acres)</string>
+    <string name="title_landsize_in_hectares">Land Size\n(hectares)</string>
     <string name="title_profitkgs">Expected price\n per Kg</string>
 
     <string name="txt_blank">...</string>
@@ -32,14 +33,23 @@
     <string name="lbl_btn_calculate">Calculate</string>
     <string name="results_title">Fertilizer optimization</string>
     <string name="header_crop_fertilizer_ratio">Application Rate-kg/Acre</string>
+    <string name="header_crop_fertilizer_ratio_in_hectares">Application Rate-kg/Ha</string>
     <string name="results_label_total_fertilizer">Total fertilizer needed in an Acre</string>
+    <string name="results_label_total_fertilizer_hectares">Total fertilizer needed in a Hectare</string>
     <string name="title_yield_increase">Yield Increases</string>
     <string name="title_net_returns">Net Returns</string>
     <string name="results_label_expected_averages">Expected Average Effects per Acre</string>
+    <string name="results_label_expected_averages_in_hectares">Expected Average Effects per Hectare</string>
     <string name="results_label_net_returns">Total net returns to investiment in fertilizer</string>
     <string name="hint_crop_price_per_kg">price/Kg</string>
     <string name="hint_price_per_bag">price/50kg bag</string>
     <string name="menu_context_title">delete?</string>
+    <string name="results_land_units_prompt">Land units</string>
+    <string name="results_land_units_acres">Acres</string>
+    <string name="results_land_units_hectares">Hectares</string>
+    <string name="about_version">Version 1.2</string>
+    <string name="about_legal">All rights reserved. Grameen Foundatoin is not liable for any damage incurred from use of this software.</string>
+    <string name="action_about">About</string>
 
     <style name="invisible_buttons_text">
         <item name="android:textColor">#999999</item>

@@ -91,6 +91,7 @@ public class LocalCalculator extends AsyncTask<Calc, Void, Calc> {
         try {
             try {
                 if (checkInternetConnection()) {
+                    Log.d(getClass().getSimpleName(), "Connecting to service at "+this.url);
                     Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
                     String json = gson.toJson(details);
 
@@ -135,15 +136,18 @@ public class LocalCalculator extends AsyncTask<Calc, Void, Calc> {
                     throw new ValidationException("no internet connectivity");
                 }
             } catch (ValidationException e) {
+                e.printStackTrace();
                 details.setSolved(false);
                 Log.e(getClass().getSimpleName(), "Failure", e);
             } catch (JsonSyntaxException e) {
+                e.printStackTrace();
                 Message message = Message.obtain(handler);
                 message.obj = "Try again later. Operation failed";
                 handler.sendMessage(message);
                 details.setSolved(false);
                 Log.e(getClass().getSimpleName(), "Json Exception", e);
             } catch (Exception e) {
+                e.printStackTrace();
                 Message message = Message.obtain(handler);
                 message.obj = "Try again later. Operation failed";
                 handler.sendMessage(message);

@@ -2,7 +2,9 @@ package org.grameenfoundation.soilfertility.ui;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
@@ -122,8 +124,11 @@ public class FragmentPreviousCalculations extends SherlockListFragment implement
                 detail = getHelper().getCalculationsDataDao().queryForSameId(detail);
                 if(detail != null && !detail.isSolved()){
                     //was saved without being solved. Solve
-                    String url = getSherlockActivity().getSharedPreferences("preferences.xml",
+                    /*String url = getSherlockActivity().getSharedPreferences("preferences.xml",
                             Context.MODE_MULTI_PROCESS).getString("url", FragmentNewCalculation.DEFAULT_URL);
+                            */
+                    SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getSherlockActivity().getBaseContext());
+                    String url = preferences.getString("url", FragmentNewCalculation.DEFAULT_URL);
                     LocalCalculator calculator = new LocalCalculator(getSherlockActivity(), url);
                     calculator.execute(detail);
                 }

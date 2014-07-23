@@ -2,6 +2,7 @@ package org.grameenfoundation.soilfertility.ui;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.widget.RadioGroup;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -38,19 +39,55 @@ public class CalculationResults extends SherlockFragmentActivity {
     private final DecimalFormat formatter = new DecimalFormat("#,###");
     private final String LOG_TAG = getClass().getSimpleName();
     private DatabaseHelper databaseHelper = null;
+    private RadioGroup radioResultLandUnits;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        refreshResultsView();
+    }
+
+    //Returns whether land units should be displayed in Acres
+    private boolean isDisplayLandUnitsInAcres() {
+      if(getIntent().hasExtra("resultsLandUnitsInAcres")) {
+        return getIntent().getBooleanExtra("resultsLandUnitsInAcres", true);
+      } else {
+          return true; //by default, results should be in acres
+      }
+    }
+
+    //This method displays / refreshes the view
+    private void refreshResultsView() {
+
         setContentView(R.layout.calculation_results);
+
+        //Set the radiogroup listneners
+        radioResultLandUnits = (RadioGroup) findViewById(R.id.radioResultLandUnits);
+
+        if(!isDisplayLandUnitsInAcres()) {
+            radioResultLandUnits.check(R.id.radioHectares);
+            //If displaying in hectares, change the labels that have acres
+            TextView header_fertilizer_total = (TextView) findViewById(R.id.header_fertilizer_total);
+            header_fertilizer_total.setText(getResources().getString(R.string.results_label_total_fertilizer_hectares));
+
+            TextView header_effects_per_acre = (TextView) findViewById(R.id.header_effects_per_acre);
+            header_effects_per_acre.setText(getResources().getString(R.string.results_label_expected_averages_in_hectares));
+
+            TextView header_rate = (TextView) findViewById(R.id.header_rate);
+            header_rate.setText(getResources().getString(R.string.header_crop_fertilizer_ratio_in_hectares));
+
+            TextView labelLandSize = (TextView) findViewById(R.id.labelLandSize);
+            labelLandSize.setText(getResources().getString(R.string.title_landsize_in_hectares));
+
+
+
+        }
 
         table_ratios = (TableLayout) findViewById(R.id.table_crop_feertilzer_ration);
         table_total_fertilizer = (TableLayout) findViewById(R.id.table_fertilizer_totals);
         table_expected_effects = (TableLayout) findViewById(R.id.table_expected_effects);
-
         table_crops = (TableLayout) findViewById(R.id.table_crops);
         table_fertilizers = (TableLayout) findViewById(R.id.table_fertilisers);
-
         lbl_total_net_returns_on_investiment = (TextView) findViewById(R.id.lbl_total_net_returns_on_investiment);
         lbl_input_amount_available = (TextView) findViewById(R.id.lbl_input_amount_available);
         results = (Calc) getIntent().getSerializableExtra("result");
@@ -67,6 +104,22 @@ public class CalculationResults extends SherlockFragmentActivity {
             populateFertilizersTable();
             lbl_input_amount_available.setText("Amount available:  " + formatter.format(results.getAmtAvailable()));
         }
+
+
+        radioResultLandUnits.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
+        {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i)
+            {
+                //if selected hectares, view in acres should be false else true
+                if(i == R.id.radioAcres) {
+                    getIntent().putExtra("resultsLandUnitsInAcres", true);
+                } else {
+                    getIntent().putExtra("resultsLandUnitsInAcres", false);
+                }
+                refreshResultsView();
+            }
+        });
     }
 
     /**
@@ -128,7 +181,13 @@ public class CalculationResults extends SherlockFragmentActivity {
                 //column amount-need
                 TextView txt_amount = (TextView) new_row.findViewById(R.id.results_row_total_fertilzer_value_row);
                 txt_amount.setId(new_row_id_multiplier++);
-                Double total = round(calcFertilizer.getTotalRequired() / FragmentNewCalculation.ACRE, 1);
+
+                //Show total per unit of land in the set land units
+                Double total = round(calcFertilizer.getTotalRequired(), 1);
+                if(isDisplayLandUnitsInAcres())
+                {
+                    total = round(calcFertilizer.getTotalRequired() / FragmentNewCalculation.ACRE, 1);
+                }
                 txt_amount.setText(total.toString());
                 //add row
                 table_total_fertilizer.addView(new_row);
@@ -158,13 +217,21 @@ public class CalculationResults extends SherlockFragmentActivity {
                 //column yield
                 TextView txt_yield = (TextView) new_row.findViewById(R.id.resultrow_effects_yield_column);
                 txt_yield.setId(new_row_id_multiplier++);
-                long yield = Math.round(calcCrop.getYieldIncrease() / FragmentNewCalculation.ACRE);
+
+                long yield = Math.round(calcCrop.getYieldIncrease());
+                if(isDisplayLandUnitsInAcres()) {
+                    yield = Math.round(FragmentNewCalculation.changeHectaresToAcres(calcCrop.getYieldIncrease()));
+                }
                 txt_yield.setText(formatter.format(yield));
                 //column returns
                 TextView txt_returns = (TextView) new_row.findViewById(R.id.resultrow_effects_returns_column);
                 txt_returns.setId(new_row_id_multiplier++);
-                long retunrns = Math.round(calcCrop.getNetReturns() / FragmentNewCalculation.ACRE);
-                txt_returns.setText(formatter.format(retunrns));
+
+                long returns = Math.round(calcCrop.getNetReturns());
+                if(isDisplayLandUnitsInAcres()) {
+                    returns = Math.round(FragmentNewCalculation.changeHectaresToAcres(calcCrop.getNetReturns()));
+                }
+                txt_returns.setText(formatter.format(returns));
                 //add row
                 table_expected_effects.addView(new_row);
             }
@@ -194,9 +261,12 @@ public class CalculationResults extends SherlockFragmentActivity {
                 //column land_size
                 TextView txt_area = (TextView) new_row.findViewById(R.id.crop_area);
                 txt_area.setId(new_row_id_multiplier++);
-                // long area = Math.round(calcCrop.getArea());
-                // txt_area.setText(formatter.format(area));
-                txt_area.setText(truncate(calcCrop.getAreaInAcres(), 5).toString());
+                //long area = Math.round(calcCrop.getArea());
+                txt_area.setText(truncate(calcCrop.getArea(), 5).toString());
+                if(isDisplayLandUnitsInAcres())
+                {
+                    txt_area.setText(truncate(round(calcCrop.getAreaInAcres(), 3), 5).toString());
+                }
 
                 //column price
                 TextView txt_price = (TextView) new_row.findViewById(R.id.crop_price);
@@ -262,7 +332,7 @@ public class CalculationResults extends SherlockFragmentActivity {
         return null;
     }
 
-    public static Double getFertilizerRatioForCrop(Calc results, CalcCropFertilizerRatio crop) {
+    public Double getFertilizerRatioForCrop(Calc results, CalcCropFertilizerRatio crop) {
         Double totalLandSize = results.getTotalLandSize();
         Collection<CalcCrop> crops = results.getCalcCrops();
 
@@ -285,7 +355,12 @@ public class CalculationResults extends SherlockFragmentActivity {
         }
         if(fertilizer != null) {
             //lastly, convert to per Acre
-            return  (fertilizer.getTotalRequired() * landRatio) / FragmentNewCalculation.ACRE;
+            //return  (fertilizer.getTotalRequired() * landRatio) / FragmentNewCalculation.ACRE;
+            if(isDisplayLandUnitsInAcres()) {
+                return FragmentNewCalculation.changeHectaresToAcres(fertilizer.getTotalRequired() * landRatio);
+            }
+            return fertilizer.getTotalRequired() * landRatio;
+
         }
         return 0d;
     }

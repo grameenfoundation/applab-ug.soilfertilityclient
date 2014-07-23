@@ -101,6 +101,11 @@ public class MainActivity extends SherlockFragmentActivity {
         } else if (item.getItemId() == R.id.mn_preferences) {
             startActivity(new Intent(this, Preferences.class));
         }
+        else if (item.getItemId() == R.id.action_about) {
+            AboutDialog about = new AboutDialog(this);
+            about.setTitle("About FOT");
+            about.show();
+        }
 
         return super.onOptionsItemSelected(item);
     }
