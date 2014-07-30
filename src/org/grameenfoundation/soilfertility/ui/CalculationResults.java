@@ -70,6 +70,10 @@ public class CalculationResults extends SherlockFragmentActivity {
             TextView header_fertilizer_total = (TextView) findViewById(R.id.header_fertilizer_total);
             header_fertilizer_total.setText(getResources().getString(R.string.results_label_total_fertilizer_hectares));
 
+            //Temporarily change heading to total fertilizers to "Total Fertilizers needed"
+            header_fertilizer_total.setText("Total Fertilizers needed");
+
+
             TextView header_effects_per_acre = (TextView) findViewById(R.id.header_effects_per_acre);
             header_effects_per_acre.setText(getResources().getString(R.string.results_label_expected_averages_in_hectares));
 
@@ -149,7 +153,9 @@ public class CalculationResults extends SherlockFragmentActivity {
                 txt_ratio.setId(new_row_id_multiplier++);
                 //Double landRation = getLandRatioOfCrop(crops, ratio.getCrop(), totalLandSize);
                 //Double ration = round(ratio.getAmt() * landRation / FragmentNewCalculation.ACRE, 1);
-                Double ration = round(getFertilizerRatioForCrop(results, ratio), 1);
+
+                //Double ration = round(getFertilizerRatioForCrop(results, ratio), 1);
+                Double ration = round(getFertilizerRequiredForCrop(results, ratio), 1);
                 txt_ratio.setText(ration.toString());
                 //add row if ratio is not zero
                 if (ratio.getAmt() > 0) {
@@ -184,10 +190,11 @@ public class CalculationResults extends SherlockFragmentActivity {
 
                 //Show total per unit of land in the set land units
                 Double total = round(calcFertilizer.getTotalRequired(), 1);
-                if(isDisplayLandUnitsInAcres())
-                {
-                    total = round(calcFertilizer.getTotalRequired() / FragmentNewCalculation.ACRE, 1);
-                }
+                //No conversion needed here since totals are the same
+//                if(isDisplayLandUnitsInAcres())
+//                {
+//                    total = round(calcFertilizer.getTotalRequired() / FragmentNewCalculation.ACRE, 1);
+//                }
                 txt_amount.setText(total.toString());
                 //add row
                 table_total_fertilizer.addView(new_row);
@@ -220,7 +227,8 @@ public class CalculationResults extends SherlockFragmentActivity {
 
                 long yield = Math.round(calcCrop.getYieldIncrease());
                 if(isDisplayLandUnitsInAcres()) {
-                    yield = Math.round(FragmentNewCalculation.changeHectaresToAcres(calcCrop.getYieldIncrease()));
+                    //yield = Math.round(FragmentNewCalculation.changeHectaresToAcres(calcCrop.getYieldIncrease()));
+                    yield = Math.round(calcCrop.getYieldIncrease() / FragmentNewCalculation.ACRE);
                 }
                 txt_yield.setText(formatter.format(yield));
                 //column returns
@@ -229,7 +237,8 @@ public class CalculationResults extends SherlockFragmentActivity {
 
                 long returns = Math.round(calcCrop.getNetReturns());
                 if(isDisplayLandUnitsInAcres()) {
-                    returns = Math.round(FragmentNewCalculation.changeHectaresToAcres(calcCrop.getNetReturns()));
+                    //returns = Math.round(FragmentNewCalculation.changeHectaresToAcres(calcCrop.getNetReturns()));
+                    returns = Math.round(calcCrop.getNetReturns() / FragmentNewCalculation.ACRE);
                 }
                 txt_returns.setText(formatter.format(returns));
                 //add row
@@ -364,6 +373,40 @@ public class CalculationResults extends SherlockFragmentActivity {
         }
         return 0d;
     }
+
+
+
+
+
+
+
+
+    public Double getFertilizerRequiredForCrop(Calc results, CalcCropFertilizerRatio crop) {
+
+        //But first, get the fertilizer
+        CalcCropFertilizerRatio fertilizerRatio = null;
+        for (CalcCropFertilizerRatio calcFertilizer : results.getCropFerts()) {
+            if(calcFertilizer.getFert().getName().equals(crop.getFert().getName())){
+                fertilizerRatio = calcFertilizer;
+                break;
+            }
+        }
+        if(fertilizerRatio != null) {
+            //lastly, convert to per Acre
+            //return  (fertilizer.getTotalRequired() * landRatio) / FragmentNewCalculation.ACRE;
+            if(isDisplayLandUnitsInAcres()) {
+                //return FragmentNewCalculation.changeHectaresToAcres(fertilizerRatio.getAmt());
+                return fertilizerRatio.getAmt() / FragmentNewCalculation.ACRE;
+            }
+            return fertilizerRatio.getAmt();
+
+        }
+        return 0d;
+    }
+
+
+
+
 
     /**
      * custom rounding method
