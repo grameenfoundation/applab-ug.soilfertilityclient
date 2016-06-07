@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/scroll_view"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:id="@+id/view_group"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+        <TextView android:id="@+id/lbl_name"
+                  android:layout_width="wrap_content"
+                  android:layout_height="40dip"
+                  android:text="@string/lbl_name"
+                  android:gravity="center_vertical"
+            style="@style/labels_bold"
+            android:layout_toStartOf="@+id/spinner1"
+            android:layout_above="@+id/lbl_Units"
+            android:layout_alignRight="@+id/btn_add_fertilizer"
+            android:layout_alignEnd="@+id/btn_add_fertilizer" />
+        <EditText android:id="@+id/txt_name"
+                  android:hint="@string/hint_farmer"
+                  android:layout_height="wrap_content"
+                  android:layout_width="fill_parent"
+            android:inputType="text"
+            android:layout_below="@+id/spinner1"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_toEndOf="@+id/lbl_Units"
+            android:layout_toRightOf="@+id/lbl_Units" />
+
+        <!-- ====================================================================================== -->
+
+
+
+        <RadioGroup
+            android:id="@+id/rgOpinion"
+            android:layout_width="262dp"
+            android:layout_height="wrap_content"
+            android:layout_column="17"
+            android:layout_gravity="center_horizontal"
+            android:orientation="horizontal"
+            android:layout_below="@+id/txt_name"
+            android:layout_toRightOf="@+id/lbl_Units"
+            android:layout_toEndOf="@+id/lbl_Units">
+            <RadioButton
+                android:id="@+id/radiobtnexclnt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="Acres"
+                android:layout_alignLeft="@+id/txt_name"
+                android:layout_toRightOf="@+id/lbl_name"
+                android:layout_toLeftOf="@+id/radiobtngood"
+                android:layout_toStartOf="@+id/radiobtngood">
+            </RadioButton>
+            <RadioButton
+                android:id="@+id/radiobtngood"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Hectares"
+                android:layout_column="12"
+
+                android:layout_gravity="center_horizontal"
+                android:layout_below="@+id/txt_name">
+            </RadioButton>
+
+        </RadioGroup>
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                      android:id="@+id/crops_layout"
+                      android:orientation="vertical"
+                      android:layout_width="fill_parent"
+                      android:layout_height="wrap_content"
+                      android:layout_below="@id/txt_name"
+            android:layout_marginTop="40dp">
+
+
+            <TableLayout android:id="@+id/table_crops"
+                         android:layout_height="match_parent"
+                         android:layout_width="match_parent"
+                android:layout_marginTop="0dp">
+
+                <TableRow android:id="@+id/table_crops_header"
+                          android:layout_width="match_parent"
+                          android:layout_height="match_parent"
+                          android:background="#b3b3b3"
+                          android:layout_marginTop="1dip"
+                          android:layout_marginLeft="1dip"
+                          android:layout_marginRight="1dip">
+
+                    <TextView android:padding="5dp"
+                              android:id="@+id/table_coulumn1"
+                              android:layout_width="0px"
+                              android:layout_height="match_parent"
+                              android:text="@string/title_crop"
+                              android:layout_weight="0.3"
+                              style="@style/table_header_bg"
+                              android:gravity="center_vertical"
+                        android:layout_marginTop="30dp" />
+
+                    <TextView android:padding="5dp"
+                              android:id="@+id/textView1"
+                              android:layout_width="0px"
+                              android:layout_height="match_parent"
+                              android:text="@string/title_landsize"
+                              android:layout_weight="0.3"
+                              style="@style/table_header_bg"
+                              android:gravity="center_vertical|center_horizontal"/>
+                    <TextView android:padding="5dp"
+                              android:id="@+id/textView1"
+                              android:layout_width="0px"
+                              android:layout_height="match_parent"
+                              android:text="@string/title_profitkgs"
+                              android:layout_weight="0.4"
+                              style="@style/table_header_bg"
+                              android:gravity="center_vertical|center_horizontal"/>
+
+
+
+
+
+                </TableRow>
+
+                <TableRow android:id="@+id/tableRow1"
+                          android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          android:background="#b3b3b3"
+                          android:layout_marginBottom="1dip" android:layout_marginLeft="1dip" android:layout_marginRight="1dip">
+                    <Spinner android:id="@+id/cmb_crops"
+                             android:padding="5dp"
+                             android:layout_width="0px"
+                             android:layout_height="match_parent"
+                             android:layout_weight="0.3"
+                             android:spinnerMode="dialog"
+                             android:background="#e6e6e6"
+                        android:layout_margin="1dp" />
+                    <EditText android:id="@+id/figure_landsize"
+                              android:padding="5dp"
+                              android:layout_width="0px"
+                              android:layout_height="match_parent"
+                              android:hint="@string/hint_landsize"
+                              android:layout_weight="0.3"
+                              android:inputType="numberDecimal"
+                              android:background="#e6e6e6" android:layout_margin="1dip"/>
+                    <EditText android:id="@+id/figure_profit"
+                              android:padding="5dp"
+                              android:layout_width="0px"
+                              android:layout_height="match_parent"
+                              android:hint="@string/hint_crop_price_per_kg"
+                              android:layout_weight="0.3"
+                              android:inputType="number"
+                              android:background="#e6e6e6" android:layout_margin="1dip"/>
+
+                    <Button android:id="@+id/btn_dynamic_remove_crop_row"
+                            android:layout_width="0px"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.1"
+                            android:layout_marginTop="7dip"
+                            android:drawableLeft="@android:drawable/ic_delete"
+                            android:radius="10dp"
+                            android:background="@android:color/transparent"/>
+                </TableRow>
+            </TableLayout>
+
+        </LinearLayout>
+
+        <!-- ====================================================================================== -->
+        <Button android:id="@+id/btn_add_row"
+                android:layout_width="wrap_content"
+                android:layout_height="30dip"
+                android:layout_below="@id/crops_layout"
+                android:layout_marginTop="5dip"
+                android:layout_alignLeft="@id/crops_layout"
+                android:drawableLeft="@android:drawable/ic_input_add"
+                android:radius="10dp"
+                android:text="@string/lbl_new_crop"
+            style="@style/invisible_buttons_text"
+                android:background="@android:color/transparent"
+            android:paddingTop="0dp"
+            android:paddingLeft="10dp" />
+
+        <!-- ====================================================================================== -->
+
+        <TableLayout android:id="@+id/table_fertilizers"
+                     android:layout_height="match_parent"
+                     android:layout_width="match_parent"
+                     android:layout_below="@id/btn_add_row"
+                     android:layout_marginTop="8dip">
+            <TableRow android:id="@+id/table_fertilizers_header"
+                      android:layout_width="match_parent"
+                      android:layout_height="match_parent"
+                      android:background="#b3b3b3"
+                      android:layout_marginTop="1dip" android:layout_marginLeft="1dip" android:layout_marginRight="1dip">
+
+                <TextView android:padding="5dp"
+                          android:id="@+id/table_fertilizer_coulumn1"
+                          android:layout_width="0px"
+                          android:layout_height="match_parent"
+                          android:text="@string/title_fertilizer"
+                          android:layout_weight="0.6"
+                          style="@style/table_header_bg"
+                          android:gravity="center_vertical"/>
+                <TextView android:padding="5dp"
+                          android:id="@+id/table_fertilizer_coulumn2"
+                          android:layout_width="0px"
+                          android:layout_height="match_parent"
+                          android:text="@string/title_price_per_bag"
+                          android:layout_weight="0.4"
+                          style="@style/table_header_bg"
+                          android:gravity="center_vertical|center_horizontal"/>
+            </TableRow>
+
+            <TableRow android:id="@+id/tableFertilizerRow1"
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:background="#b3b3b3"
+                      android:layout_marginBottom="1dip"
+                      android:layout_marginLeft="1dip"
+                      android:layout_marginRight="1dip">
+                <Spinner android:id="@+id/cmb_fertilzers"
+                         android:layout_width="0px"
+                         android:spinnerMode="dialog"
+                         android:layout_height="match_parent"
+                         android:layout_weight="0.6"
+                         android:background="#e6e6e6" android:layout_margin="1dip"/>
+                <EditText android:id="@+id/figure_price_per_bag"
+                          android:layout_width="0px"
+                          android:layout_height="match_parent"
+                          android:hint="@string/hint_price_per_bag"
+                          android:layout_weight="0.3"
+                          android:inputType="number"
+                          android:singleLine="true"
+                          android:gravity="center_vertical|left"
+                          android:background="#e6e6e6" android:layout_margin="1dip"/>
+
+                <Button android:id="@+id/btn_dynamic_remove_fertilizer"
+                        android:layout_width="0px"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.1"
+                        android:layout_marginTop="7dip"
+                        android:drawableLeft="@android:drawable/ic_delete"
+                        android:radius="10dp"
+                        android:background="@android:color/transparent"/>
+
+            </TableRow>
+        </TableLayout>
+
+        <!-- ====================================================================================== -->
+
+        <Button android:id="@+id/btn_add_fertilizer"
+                android:layout_width="wrap_content"
+                android:layout_height="30dip"
+                android:layout_below="@id/table_fertilizers"
+                android:layout_marginTop="5dip"
+                android:layout_alignLeft="@id/crops_layout"
+                android:drawableLeft="@android:drawable/ic_input_add"
+                android:radius="10dp"
+                android:text="@string/lbl_new_fertiliser"
+            style="@style/invisible_buttons_text"
+            android:paddingLeft="10dp"
+            android:layout_marginBottom="5dp">
+        </Button>
+
+
+        <TextView android:id="@+id/lbl_amount_available"
+            android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="@string/lbl_amount_available"
+            android:gravity="left|center_vertical"
+                  style="@style/labels_bold"
+            android:layout_below="@+id/btn_add_fertilizer"
+            android:layout_toStartOf="@+id/txt_amount_available"
+            android:layout_alignRight="@+id/btn_add_fertilizer"
+            android:layout_alignEnd="@+id/btn_add_fertilizer"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp" />
+        <EditText android:id="@+id/txt_amount_available"
+                  android:layout_height="wrap_content"
+                  android:layout_width="fill_parent"
+            android:gravity="left|bottom"
+                  android:hint="@string/hint_amount"
+                  android:inputType="number"
+            android:layout_alignBottom="@+id/lbl_amount_available"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_toRightOf="@+id/btn_add_fertilizer"
+            android:layout_toEndOf="@+id/btn_add_fertilizer"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp" />
+
+        <Button android:id="@+id/btn_calculate"
+                android:layout_width="200dip"
+                android:layout_height="50dip"
+            android:text="@string/lbl_btn_calculate"
+            android:background="@drawable/button_background"
+            android:layout_alignWithParentIfMissing="false"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/lbl_amount_available" />
+
+        <TextView
+            style="@style/labels_bold"
+            android:id="@+id/textregion"
+            android:layout_width="wrap_content"
+            android:layout_height="40dip"
+            android:text="@string/lbl_region"
+            android:gravity="center_vertical"
+            android:layout_alignParentTop="true"
+            android:layout_alignLeft="@+id/lbl_name"
+            android:layout_alignStart="@+id/lbl_name"
+            android:layout_alignRight="@+id/lbl_name"
+            android:layout_alignEnd="@+id/lbl_name" />
+
+        <Spinner
+            android:id="@+id/spinner1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:drawable/btn_dropdown"
+            android:spinnerMode="dropdown"
+            android:layout_alignBottom="@+id/textregion"
+            android:paddingTop="0dp"
+            android:layout_toEndOf="@+id/btn_add_row"
+            android:layout_alignLeft="@+id/btn_calculate"
+            android:layout_alignStart="@+id/btn_calculate" />
+
+        <TextView android:id="@+id/lbl_Units"
+            android:layout_width="77dp"
+            android:layout_height="33dp"
+            android:text="Units"
+            android:gravity="center_vertical"
+            style="@style/labels_bold"
+            android:layout_alignBottom="@+id/rgOpinion"
+            android:layout_alignRight="@+id/btn_add_fertilizer"
+            android:layout_alignEnd="@+id/btn_add_fertilizer"
+            android:layout_alignLeft="@+id/spinner1"
+            android:layout_alignStart="@+id/spinner1" />
+
+    </RelativeLayout>
+</ScrollView>

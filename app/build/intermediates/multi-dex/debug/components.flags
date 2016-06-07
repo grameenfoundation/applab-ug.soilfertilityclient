@@ -1,0 +1,34 @@
+-injars 'C:\Users\hp\Google Drive\Grameen\FOT-Josh\app\build\intermediates\transforms\jarMerging\debug\jars\1\1f\combined.jar'
+-outjars 'C:\Users\hp\Google Drive\Grameen\FOT-Josh\app\build\intermediates\multi-dex\debug\componentClasses.jar'
+
+-libraryjars 'C:\Users\hp\AppData\Local\Android\sdk1\build-tools\23.0.1\lib\shrinkedAndroid.jar'
+
+-forceprocessing
+-dontoptimize
+-dontobfuscate
+-dontusemixedcaseclassnames
+-dontpreverify
+-dontwarn
+-printconfiguration 'C:\Users\hp\Google Drive\Grameen\FOT-Josh\app\build\intermediates\multi-dex\debug\components.flags'
+
+
+-keep class org.grameenfoundation.soilfertility.ui.MainActivity {
+    <init>();
+}
+
+-keep class org.grameenfoundation.soilfertility.ui.CalculationResults {
+    <init>();
+}
+
+-keep class org.grameenfoundation.soilfertility.ui.Preferences {
+    <init>();
+}
+
+-keep public class * extends android.app.backup.BackupAgent {
+    <init>();
+}
+
+-keep public class * extends java.lang.annotation.Annotation {
+    <fields>;
+    <methods>;
+}

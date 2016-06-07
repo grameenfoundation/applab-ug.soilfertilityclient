@@ -1,0 +1,29 @@
+<TableRow xmlns:android="http://schemas.android.com/apk/res/android"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:background="#b3b3b3"
+          android:layout_margin="1dip">
+    <Spinner android:id="@+id/cmb_fertilzers_row"
+             android:layout_width="0px"
+             android:layout_height="match_parent"
+             android:layout_weight="0.6"
+             android:background="#e6e6e6" android:layout_margin="1dip"/>
+    <EditText android:id="@+id/figure_price_per_bag_row"
+              android:layout_width="0px"
+              android:layout_height="match_parent"
+              android:hint="@string/hint_price_per_bag"
+              android:layout_weight="0.3"
+              android:inputType="number"
+              android:singleLine="true"
+              android:gravity="center_vertical|left"
+              android:background="#e6e6e6" android:layout_margin="1dip"/>
+
+    <Button android:id="@+id/btn_dynamic_remove_fertilizer"
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:layout_weight="0.1"
+            android:layout_marginTop="7dip"
+            android:drawableLeft="@android:drawable/ic_delete"
+            android:radius="10dp"
+            android:background="@android:color/transparent"/>
+</TableRow>

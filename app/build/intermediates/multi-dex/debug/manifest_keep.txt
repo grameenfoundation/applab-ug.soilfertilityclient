@@ -1,0 +1,9 @@
+-keep class org.grameenfoundation.soilfertility.ui.MainActivity { <init>(); }
+-keep class org.grameenfoundation.soilfertility.ui.CalculationResults { <init>(); }
+-keep class org.grameenfoundation.soilfertility.ui.Preferences { <init>(); }
+-keep public class * extends android.app.backup.BackupAgent {
+    <init>();
+}
+-keep public class * extends java.lang.annotation.Annotation {
+    *;
+}

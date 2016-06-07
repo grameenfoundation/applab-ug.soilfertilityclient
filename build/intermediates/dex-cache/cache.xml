@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="C:\Users\hp\.gradle\caches\modules-2\files-2.1\com.google.code.gson\gson\1.7.1\697e3a1fa094a983cd12f7f6f61abf9c6ea52e2\gson-1.7.1.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="0697e3a1fa094a983cd12f7f6f61abf9c6ea52e2">
+        <dex dex="C:\Users\hp\Google Drive\Grameen\FOT-Josh\app\build\intermediates\pre-dexed\debug\gson-1.7.1_4fdb991999cfa0caa9184a4b8efcfae49b3e363e.jar" />
+    </item>
+    <item
+        jar="C:\Users\hp\Google Drive\Grameen\FOT-Josh\app\libs\android-support-v13.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="9ca535b56d84d8aca3e669510e0de03387f6e07e">
+        <dex dex="C:\Users\hp\Google Drive\Grameen\FOT-Josh\app\build\intermediates\pre-dexed\debug\android-support-v13_38eee7155be4b905d06df7c93b86599023d8270e.jar" />
+    </item>
+    <item
+        jar="C:\Users\hp\Google Drive\Grameen\FOT-Josh\app\libs\ormlite-android-4.48.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="afa06f539a4026c10b247386312aa67404b80a16">
+        <dex dex="C:\Users\hp\Google Drive\Grameen\FOT-Josh\app\build\intermediates\pre-dexed\debug\ormlite-android-4.48_75ab2120e5fc721973b2f1a6a6b34a7d275d5bab.jar" />
+    </item>
+    <item
+        jar="C:\Users\hp\Google Drive\Grameen\FOT-Josh\app\libs\junit-4.4.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="8f35ee1f35d2dadbb5029991449ee90c1bab4d4a">
+        <dex dex="C:\Users\hp\Google Drive\Grameen\FOT-Josh\app\build\intermediates\pre-dexed\debug\junit-4.4_90b368b39cc4d197aeee2eab869213a3a89ad902.jar" />
+    </item>
+    <item
+        jar="C:\Users\hp\Google Drive\Grameen\FOT-Josh\app\libs\ormlite-core-4.48.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="e579bd2905d0399af5029aaaf9817d5fa0ca88a5">
+        <dex dex="C:\Users\hp\Google Drive\Grameen\FOT-Josh\app\build\intermediates\pre-dexed\debug\ormlite-core-4.48_5a5516167597a9fee2eb7dfc30c4f36a1f0ac642.jar" />
+    </item>
+    <item
+        jar="C:\Users\hp\Google Drive\Grameen\FOT-Josh\app\build\intermediates\exploded-aar\com.actionbarsherlock\actionbarsherlock\4.4.0\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="af64527b748983a75de9c0756e9768b56b240a49">
+        <dex dex="C:\Users\hp\Google Drive\Grameen\FOT-Josh\app\build\intermediates\pre-dexed\debug\com.actionbarsherlock-actionbarsherlock-4.4.0_5dd42818fff48d039daddb5a2f6401e7b3f8c25e.jar" />
+    </item>
+    <item
+        jar="C:\Users\hp\AppData\Local\Android\sdk1\extras\android\m2repository\com\android\support\support-v4\18.0.0\support-v4-18.0.0.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="44ec51e9d395a47aab135e5e1b556c0007442156">
+        <dex dex="C:\Users\hp\Google Drive\Grameen\FOT-Josh\app\build\intermediates\pre-dexed\debug\support-v4-18.0.0_35f192f37ead11ee2834d808913a7703cef2c2b4.jar" />
+    </item>
+
+</items>

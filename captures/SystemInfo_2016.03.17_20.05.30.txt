@@ -1,0 +1,33 @@
+Activity Resolver Table:
+  Non-Data Actions:
+      android.intent.action.MAIN:
+        4109d700 org.grameenfoundation.soilfertility/.ui.MainActivity filter 4109d850
+ 
+Packages:
+  Package [org.grameenfoundation.soilfertility] (40d694e8):
+    userId=10047 gids=[3003, 1028, 1015]
+    sharedUser=null
+    pkg=Package{4106fe70 org.grameenfoundation.soilfertility}
+    codePath=/data/app/org.grameenfoundation.soilfertility-1.apk
+    resourcePath=/data/app/org.grameenfoundation.soilfertility-1.apk
+    nativeLibraryPath=/data/app-lib/org.grameenfoundation.soilfertility-1
+    versionCode=1
+    applicationInfo=ApplicationInfo{4106ff08 org.grameenfoundation.soilfertility}
+    flags=[ DEBUGGABLE HAS_CODE ALLOW_CLEAR_USER_DATA ALLOW_BACKUP ]
+    versionName=1.0
+    dataDir=/data/data/org.grameenfoundation.soilfertility
+    targetSdk=17
+    supportsScreens=[small, medium, large, xlarge, resizeable, anyDensity]
+    timeStamp=2016-03-17 16:44:18
+    firstInstallTime=2016-03-10 13:07:53
+    lastUpdateTime=2016-03-17 16:44:21
+    signatures=PackageSignatures{40d695b0 [40d6a380]}
+    permissionsFixed=true haveGids=true installStatus=1
+    pkgFlags=[ DEBUGGABLE HAS_CODE ALLOW_CLEAR_USER_DATA ALLOW_BACKUP ]
+    User 0:  installed=true stopped=false notLaunched=false enabled=0
+    grantedPermissions:
+      android.permission.READ_EXTERNAL_STORAGE
+      android.permission.READ_PHONE_STATE
+      android.permission.ACCESS_NETWORK_STATE
+      android.permission.WRITE_EXTERNAL_STORAGE
+      android.permission.INTERNET

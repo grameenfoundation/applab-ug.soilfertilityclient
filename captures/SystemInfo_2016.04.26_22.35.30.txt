@@ -1,0 +1,93 @@
+TASK org.grameenfoundation.soilfertility id=3
+  ACTIVITY org.grameenfoundation.soilfertility/.ui.MainActivity 40e37318 pid=795
+    Local FragmentActivity 40cd8530 State:
+      mCreated=truemResumed=true mStopped=false mReallyStopped=false
+      mLoadersStarted=true
+    Active Fragments in 40cd9670:
+      #0: FragmentNewCalculation{40cdb748 #0 id=0x7f09006a}
+        mFragmentId=#7f09006a mContainerId=#7f09006a mTag=null
+        mState=5 mIndex=0 mWho=android:fragment:0 mBackStackNesting=0
+        mAdded=true mRemoving=false mResumed=true mFromLayout=false mInLayout=false
+        mHidden=false mDetached=false mMenuVisible=true mHasMenu=false
+        mRetainInstance=true mRetaining=false mUserVisibleHint=true
+        mFragmentManager=FragmentManager{40cd9670 in MainActivity{40cd8530}}
+        mActivity=org.grameenfoundation.soilfertility.ui.MainActivity@40cd8530
+        mContainer=android.widget.FrameLayout{40d17c90 V.E..... ........ 0,0-768,1038 #7f09006a app:id/content_frame}
+        mView=android.support.v4.app.NoSaveStateFrameLayout{40f18e68 V.E..... ........ 0,0-768,1038}
+        mInnerView=android.support.v4.app.NoSaveStateFrameLayout{40f18e68 V.E..... ........ 0,0-768,1038}
+    Added Fragments:
+      #0: FragmentNewCalculation{40cdb748 #0 id=0x7f09006a}
+    FragmentManager misc state:
+      mActivity=org.grameenfoundation.soilfertility.ui.MainActivity@40cd8530
+      mContainer=android.support.v4.app.FragmentActivity$2@40cd9fb0
+      mCurState=5 mStateSaved=false mDestroyed=false
+    View Hierarchy:
+      com.android.internal.policy.impl.PhoneWindow$DecorView{40ce6530 V.E..... ... 0,0-768,1184}
+        android.widget.LinearLayout{40ce75c0 V.E..... ... 0,0-768,1184}
+          com.android.internal.widget.ActionBarContainer{40ce8210 V.ED.... ... 0,50-768,146 #1020359 android:id/action_bar_container}
+            com.android.internal.widget.ActionBarView{40ced638 V.E..... ... 0,0-768,96 #102035a android:id/action_bar}
+              android.widget.LinearLayout{40cfd060 VFE...C. ... 0,0-373,96}
+                com.android.internal.widget.ActionBarView$HomeView{40cfe8c0 V.E..... ... 0,0-97,96}
+                  android.widget.ImageView{40cfee80 V.ED.... ... 0,32-32,64 #1020246 android:id/up}
+                  android.widget.ImageView{40d004f8 V.ED.... ... 25,16-89,80 #102002c android:id/home}
+                android.widget.LinearLayout{40d01ee8 V.E..... ... 97,0-373,96}
+                  android.widget.ImageView{40d022d0 G.ED.... ... 0,0-0,0 #1020246 android:id/up}
+                  android.widget.LinearLayout{40d02658 V.E..... ... 0,23-260,72}
+                    android.widget.TextView{40d02b70 V.ED.... ... 0,0-260,49 #102024d android:id/action_bar_title}
+                    android.widget.TextView{40d03900 G.ED.... ... 0,0-0,0 #102024e android:id/action_bar_subtitle}
+              com.android.internal.view.menu.ActionMenuView{40f56028 V.ED.... ... 656,0-768,96}
+                com.android.internal.view.menu.ActionMenuPresenter$OverflowMenuButton{40f50810 VFED..C. ... 0,0-112,96}
+            com.android.internal.widget.ActionBarContextView{40d040a0 G.E..... ... 0,0-0,0 #102035b android:id/action_context_bar}
+          android.widget.FrameLayout{40d094a8 V.ED.... ... 0,146-768,1184 #1020002 android:id/content}
+            android.support.v4.widget.DrawerLayout{40d0e5a0 VFE..... F.. 0,0-768,1038 #7f090069 app:id/drawer_layout}
+              android.widget.FrameLayout{40d17c90 V.E..... ... 0,0-768,1038 #7f09006a app:id/content_frame}
+                android.support.v4.app.NoSaveStateFrameLayout{40f18e68 V.E..... ... 0,0-768,1038}
+                  android.widget.ScrollView{40ce14d0 VFED.V.. ... 0,0-768,1038 #7f090049 app:id/scroll_view}
+                    android.widget.RelativeLayout{40d17508 V.E..... ... 0,0-768,1002 #7f09004a app:id/view_group}
+                      android.widget.TextView{40d15408 V.ED.... ... 70,77-289,157 #7f09004b app:id/lbl_name}
+                      android.widget.EditText{40ccaf30 VFED..CL ... 289,80-768,159 #7f09004f app:id/txt_name}
+                      android.widget.RadioGroup{40cd3f60 V.E..... ... 289,159-768,223 #7f090050 app:id/rgOpinion}
+                        android.widget.RadioButton{40ce5f60 VFED..C. ... 0,0-145,64 #7f090051 app:id/radiobtnexclnt}
+                        android.widget.RadioButton{40d16dc8 VFED..C. ... 145,0-337,64 #7f090052 app:id/radiobtngood}
+                      android.widget.LinearLayout{40cdb0d8 V.E..... ... 0,239-768,469 #7f090053 app:id/crops_layout}
+                        android.widget.TableLayout{40d0f418 V.E..... ... 0,0-768,230 #7f09003f app:id/table_crops}
+                          android.widget.TableRow{40d148d0 V.E..... ... 2,2-766,108 #7f090040 app:id/table_crops_header}
+                            android.widget.TextView{40ce7860 V.ED.... ... 2,2-227,104 #7f090041 app:id/table_coulumn1}
+                            android.widget.TextView{40ce7b00 V.ED.... ... 231,2-456,104 #7f090042 app:id/textView1}
+                            android.widget.TextView{40cedae0 V.ED.... ... 460,2-762,104 #7f090042 app:id/textView1}
+                          android.widget.TableRow{40ce7da0 V.E..... ... 2,108-766,228 #7f090054 app:id/tableRow1}
+                            android.widget.Spinner{40cedd80 VFED..C. ... 2,2-227,118 #7f090055 app:id/cmb_crops}
+                              android.widget.CheckedTextView{40f5d3c8 V.ED.... ... 10,10-215,106 #1020014 android:id/text1}
+                            android.widget.EditText{40cee028 VFED..CL ... 231,2-456,118 #7f090056 app:id/figure_landsize}
+                            android.widget.EditText{40e87800 VFED..CL ... 460,2-686,118 #7f090057 app:id/figure_profit}
+                            android.widget.Button{40e87aa0 VFED..C. ... 688,14-764,120 #7f090058 app:id/btn_dynamic_remove_crop_row}
+                      android.widget.Button{40e8bd58 VFED..C. ... 0,479-223,539 #7f090059 app:id/btn_add_row}
+                      android.widget.TableLayout{40d10010 V.E..... ... 0,555-768,739 #7f09005a app:id/table_fertilizers}
+                        android.widget.TableRow{40d11480 V.E..... ... 2,2-766,69 #7f09005b app:id/table_fertilizers_header}
+                          android.widget.TextView{40e90010 V.ED.... ... 2,2-455,65 #7f09005c app:id/table_fertilizer_coulumn1}
+                          android.widget.TextView{40e902b0 V.ED.... ... 459,2-762,65 #7f09005d app:id/table_fertilizer_coulumn2}
+                        android.widget.TableRow{40e90550 V.E..... ... 2,69-766,182 #7f09005e app:id/tableFertilizerRow1}
+                          android.widget.Spinner{40e90788 VFED..C. ... 2,2-455,111 #7f09005f app:id/cmb_fertilzers}
+                            android.widget.CheckedTextView{40f5a988 V.ED.... ... 0,6-453,102 #1020014 android:id/text1}
+                          android.widget.EditText{40e90a30 VFED..CL ... 459,2-686,111 #7f090060 app:id/figure_price_per_bag}
+                          android.widget.Button{40e90cd0 VFED..C. ... 688,14-764,113 #7f090061 app:id/btn_dynamic_remove_fertilizer}
+                      android.widget.Button{40e90f70 VFED..C. ... 0,749-289,809 #7f09004e app:id/btn_add_fertilizer}
+                      android.widget.TextView{40e914b8 V.ED.... ... 37,819-289,902 #7f090062 app:id/lbl_amount_available}
+                      android.widget.EditText{40e91ad0 VFED..CL ... 289,813-768,902 #7f090063 app:id/txt_amount_available}
+                      android.widget.Button{40e93548 VFED..C. ... 184,902-584,1002 #7f090064 app:id/btn_calculate}
+                      android.widget.TextView{40e94df0 V.ED.... ... 80,0-289,80 #7f090065 app:id/textregion}
+                      android.widget.Spinner{40e953f0 VFED..C. ... 184,0-768,80 #7f09004c app:id/spinner1}
+                        android.widget.CheckedTextView{40ef1f48 V.ED.... ... 21,-19-481,77 #1020014 android:id/text1}
+                      android.widget.TextView{40eec150 V.ED.... ... 194,157-289,223 #7f09004d app:id/lbl_Units}
+              android.widget.ListView{40d185a8 IFED.VC. ... -480,0-0,1038 #7f09006b app:id/listview_drawer}
+                android.widget.LinearLayout{40f36dd0 V.E..... ... 0,0-480,96}
+                  android.widget.ImageView{40f371a8 V.ED.... ... 16,0-80,96 #7f090046 app:id/icon}
+                  android.widget.LinearLayout{40f374a8 V.E..... ... 80,0-344,96}
+                    android.widget.TextView{40f37898 V.ED.... ... 0,7-264,50 #7f090047 app:id/title}
+                    android.widget.TextView{40f37d48 V.ED.... ... 0,50-250,88 #7f090048 app:id/subtitle}
+                android.widget.LinearLayout{40f3ecf0 V.E..... ... 0,95-480,191}
+                  android.widget.ImageView{40f3f080 V.ED.... ... 16,0-80,96 #7f090046 app:id/icon}
+                  android.widget.LinearLayout{40f3f380 V.E..... ... 80,0-422,96}
+                    android.widget.TextView{40f3f728 V.ED.... ... 0,7-342,50 #7f090047 app:id/title}
+                    android.widget.TextView{40f3fbd8 V.ED.... ... 0,50-86,88 #7f090048 app:id/subtitle}
+          com.android.internal.widget.ActionBarContainer{40d0aba8 G.ED.... ... 0,0-0,0 #102035c android:id/split_action_bar}

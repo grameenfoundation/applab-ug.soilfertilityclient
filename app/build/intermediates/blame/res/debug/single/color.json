@@ -1,0 +1,18 @@
+[
+    {
+        "merged": "C:\\Users\\hp\\Google Drive\\Grameen\\FOT-Josh\\app\\build\\intermediates\\res\\merged\\debug\\color\\abs__primary_text_holo_light.xml",
+        "source": "C:\\Users\\hp\\Google Drive\\Grameen\\FOT-Josh\\app\\build\\intermediates\\exploded-aar\\com.actionbarsherlock\\actionbarsherlock\\4.4.0\\res\\color\\abs__primary_text_holo_light.xml"
+    },
+    {
+        "merged": "C:\\Users\\hp\\Google Drive\\Grameen\\FOT-Josh\\app\\build\\intermediates\\res\\merged\\debug\\color\\abs__primary_text_disable_only_holo_light.xml",
+        "source": "C:\\Users\\hp\\Google Drive\\Grameen\\FOT-Josh\\app\\build\\intermediates\\exploded-aar\\com.actionbarsherlock\\actionbarsherlock\\4.4.0\\res\\color\\abs__primary_text_disable_only_holo_light.xml"
+    },
+    {
+        "merged": "C:\\Users\\hp\\Google Drive\\Grameen\\FOT-Josh\\app\\build\\intermediates\\res\\merged\\debug\\color\\abs__primary_text_disable_only_holo_dark.xml",
+        "source": "C:\\Users\\hp\\Google Drive\\Grameen\\FOT-Josh\\app\\build\\intermediates\\exploded-aar\\com.actionbarsherlock\\actionbarsherlock\\4.4.0\\res\\color\\abs__primary_text_disable_only_holo_dark.xml"
+    },
+    {
+        "merged": "C:\\Users\\hp\\Google Drive\\Grameen\\FOT-Josh\\app\\build\\intermediates\\res\\merged\\debug\\color\\abs__primary_text_holo_dark.xml",
+        "source": "C:\\Users\\hp\\Google Drive\\Grameen\\FOT-Josh\\app\\build\\intermediates\\exploded-aar\\com.actionbarsherlock\\actionbarsherlock\\4.4.0\\res\\color\\abs__primary_text_holo_dark.xml"
+    }
+]

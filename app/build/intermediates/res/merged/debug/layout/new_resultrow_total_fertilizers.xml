@@ -1,0 +1,21 @@
+<TableRow
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/results_row_total_fertilzer_row"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="#b3b3b3" android:layout_margin="1dip">
+    <TextView
+            android:id="@+id/results_row_total_fertilzer_name_row"
+            android:layout_width="0px"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.45"
+            android:layout_marginLeft="5dip"
+            android:background="#e6e6e6" android:layout_margin="1dip"/>
+    <TextView
+            android:id="@+id/results_row_total_fertilzer_value_row"
+            android:layout_width="0px"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.3"
+            android:layout_marginLeft="5dip"
+            android:background="#e6e6e6" android:layout_margin="1dip"/>
+</TableRow>
