@@ -79,11 +79,22 @@ public class Calc extends BaseDaoEnabled implements Serializable {
     @SerializedName("CalcCropFertilizerRatios")
     private Collection<CalcCropFertilizerRatio> cropFerts = new ArrayList<CalcCropFertilizerRatio>();
 
+    @Expose
+    @SerializedName("database")
+    private Database database;
+
     public Calc() {
         // all persisted classes must define a no-arg constructor
         // with at least package visibility
         setId(java.util.UUID.randomUUID().toString());
         setDateCreated(Calendar.getInstance().getTime());
+    }
+    public Database getDatabase() {
+        return database;
+    }
+
+    public void setDatabase(Database database) {
+       this.database = database;
     }
 
     public Collection<CalcFertilizer> getCalcFertilizers() {

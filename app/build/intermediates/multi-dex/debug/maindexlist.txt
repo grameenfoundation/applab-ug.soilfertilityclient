@@ -21,6 +21,7 @@ com/j256/ormlite/field/types/DoubleObjectType.class
 android/support/v4/app/NoSaveStateFrameLayout.class
 com/actionbarsherlock/internal/view/StandaloneActionMode.class
 com/j256/ormlite/logger/LoggerFactory$LogType$1.class
+org/grameenfoundation/soilfertility/model/Database.class
 com/j256/ormlite/dao/RuntimeExceptionDao.class
 org/grameenfoundation/soilfertility/ui/MainActivity$1.class
 com/j256/ormlite/field/types/DateLongType.class

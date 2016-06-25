@@ -108,7 +108,7 @@ public class FragmentNewCalculation extends SherlockFragment {
 
             Region s = (Region) regionsDropdown.getItemAtPosition(regionPos);
 //            //we will get these items from a local database
-            List<RegionCrop>  RegionCrops =   getHelper().getRegionCropDataDao().queryBuilder().distinct().selectColumns("crop_id").where().eq("region_id",  s.getId()).query();
+            List<RegionCrop>  RegionCrops =   getHelper().getRegionCropDataDao().queryBuilder().distinct().selectColumns("crop_id").where().eq("region_id", s.getId()).query();
 
             //Get Crop Names
             //lst_crops = new ArrayList<Crop>();
@@ -255,6 +255,11 @@ public class FragmentNewCalculation extends SherlockFragment {
             Calc details = new Calc();
             List<CalcCrop> calcCrops = new ArrayList<CalcCrop>();
             List<CalcFertilizer> calcFertilizers = new ArrayList<CalcFertilizer>();
+            Database database = new Database();
+            //List<Version> versions = new ArrayList<Version>();
+
+            //Get the last date modified from the Version table
+            database.setVersionDateTime(getHelper().getVersionDataDao().queryBuilder().orderBy("dateModified",false).queryForFirst());
 
             // fill in details from UI - imei and farmer name
             TelephonyManager telephonyManager = (TelephonyManager) getSherlockActivity()
@@ -263,6 +268,7 @@ public class FragmentNewCalculation extends SherlockFragment {
             details.setRegion(regionPos);
             details.setImei(telephonyManager.getDeviceId());
             details.setFarmerName(txt_farmer_name.getText().toString());
+            details.setDatabase(database);
 
             // Get Selected Radio Button set Units
             RadioGroup  rgOpinion = (RadioGroup) view.findViewById(R.id.rgOpinion);

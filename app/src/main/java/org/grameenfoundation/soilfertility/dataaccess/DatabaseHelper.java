@@ -13,7 +13,9 @@ import com.j256.ormlite.table.TableUtils;
 import org.grameenfoundation.soilfertility.model.*;
 
 import java.sql.SQLException;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -29,7 +31,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 
     private static final String DATABASE_NAME = "soilFertility.db";
     // any time changes are made to database objects, the database version has to be increased
-    private static final int DATABASE_VERSION = 9;
+    private static final int DATABASE_VERSION = 13;
 
     // the DAO objects we use to access the database tables
     private Dao<Crop, String> cropDao = null;
@@ -70,7 +72,8 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 
             //insert installation date into the version table
             Dao<Version, String> versionDao = getVersionDataDao();
-            Date currentDate = new Date();//new SimpleDateFormat("dd-MM-yyyy").format(new Date());
+
+            Date currentDate = new Date(90,1,1);
             Version version = new Version(currentDate);
             versionDao.create(version);
 
@@ -133,19 +136,19 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 
     private void insertDefaultRegions() throws SQLException {
         Dao<Region, Integer> regionDao = getRegionDataDao();
-        Region region1 = new Region(0,"Central Uganda");
+        Region region1 = new Region(0,"Central Uganda","Acres");
         regionDao.create(region1);
-        Region region2 = new Region(1,"Eastern 1400-1800m");
+        Region region2 = new Region(1,"Eastern 1400-1800m","Acres");
         regionDao.create(region2);
-        Region region3 = new Region(2,"Eastern > 1800m");
+        Region region3 = new Region(2,"Eastern > 1800m","Acres");
         regionDao.create(region3);
-        Region region4 = new Region(3,"Eastern Uganda - Lake Kyoga Basin");
+        Region region4 = new Region(3,"Eastern Uganda - Lake Kyoga Basin","Hectares");
         regionDao.create(region4);
-        Region region5 = new Region(4,"Western Highland > 1800");
+        Region region5 = new Region(4,"Western Highland > 1800","Hectares");
         regionDao.create(region5);
-        Region region6 = new Region(5,"Western Highlands Kamwenge Ibanda Bushenyi Kyenjojo 1400-1800");
+        Region region6 = new Region(5,"Western Highlands Kamwenge Ibanda Bushenyi Kyenjojo 1400-1800","Acres");
         regionDao.create(region6);
-        Region region7 = new Region(6,"Northern Midwest & West");
+        Region region7 = new Region(6,"Northern Midwest & West","Acres");
         regionDao.create(region7);
     }
 
@@ -295,5 +298,6 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         calculationDao = null;
         regionDao = null;
         regionCropDao = null;
+        versionDao = null;
     }
 }

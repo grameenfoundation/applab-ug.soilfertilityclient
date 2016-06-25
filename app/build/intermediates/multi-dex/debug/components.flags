@@ -1,5 +1,5 @@
--injars 'C:\Users\hp\Google Drive\Grameen\FOT-Josh\app\build\intermediates\transforms\jarMerging\debug\jars\1\1f\combined.jar'
--outjars 'C:\Users\hp\Google Drive\Grameen\FOT-Josh\app\build\intermediates\multi-dex\debug\componentClasses.jar'
+-injars 'C:\Users\hp\Google Drive\Grameen\applab-ug.soilfertilityclient\app\build\intermediates\transforms\jarMerging\debug\jars\1\1f\combined.jar'
+-outjars 'C:\Users\hp\Google Drive\Grameen\applab-ug.soilfertilityclient\app\build\intermediates\multi-dex\debug\componentClasses.jar'
 
 -libraryjars 'C:\Users\hp\AppData\Local\Android\sdk1\build-tools\23.0.1\lib\shrinkedAndroid.jar'
 
@@ -9,7 +9,7 @@
 -dontusemixedcaseclassnames
 -dontpreverify
 -dontwarn
--printconfiguration 'C:\Users\hp\Google Drive\Grameen\FOT-Josh\app\build\intermediates\multi-dex\debug\components.flags'
+-printconfiguration 'C:\Users\hp\Google Drive\Grameen\applab-ug.soilfertilityclient\app\build\intermediates\multi-dex\debug\components.flags'
 
 
 -keep class org.grameenfoundation.soilfertility.ui.MainActivity {

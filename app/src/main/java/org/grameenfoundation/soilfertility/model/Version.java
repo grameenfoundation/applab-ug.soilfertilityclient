@@ -18,22 +18,22 @@ public class Version implements Serializable {
     @DatabaseField(id = true,columnName = "dateModified")
     @Expose
     //@DatabaseField(columnName = "dateModified")
-    private Date dateLastModified;
+    private Date DateTime;
 
     public Version() {
 
     }
 
-    public Version(Date dateLastModified) {
-        setName(dateLastModified);
+    public Version(Date DateTime) {
+        setVersion(DateTime);
     }
 
     public Date getVersion() {
-        return dateLastModified;
+        return DateTime;
     }
 
-    public void setName(Date dateLastModified) {
-        this.dateLastModified = dateLastModified;
+    public void setVersion(Date DateTime) {
+        this.DateTime = DateTime;
     }
 
     @Override

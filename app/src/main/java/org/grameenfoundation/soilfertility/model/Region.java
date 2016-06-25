@@ -27,14 +27,20 @@ public class Region   implements Serializable {
     @SerializedName("Name")
     private String name;
 
+    @DatabaseField
+    @Expose
+    @SerializedName("Units")
+    private String units;
 
     public Region() {
 
     }
 
-    public Region(int Id,String Name) {
+    public Region(int Id,String Name,String Units) {
          setId(Id);
          setName(Name);
+        setUnits(Units);
+
     }
 
     public int getId() {
@@ -53,6 +59,13 @@ public class Region   implements Serializable {
         this.name = name;
     }
 
+    public String getUnits() {
+        return units;
+    }
+
+    public void setUnits(String units) {
+        this.units = units;
+    }
     @Override
     public String toString() {
         return getName();

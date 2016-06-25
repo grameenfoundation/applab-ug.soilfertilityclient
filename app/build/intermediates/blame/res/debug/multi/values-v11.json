@@ -1,6 +1,6 @@
 [
     {
-        "outputFile": "C:\\Users\\hp\\Google Drive\\Grameen\\FOT-Josh\\app\\build\\intermediates\\res\\merged\\debug\\values-v11\\values-v11.xml",
+        "outputFile": "C:\\Users\\hp\\Google Drive\\Grameen\\applab-ug.soilfertilityclient\\app\\build\\intermediates\\res\\merged\\debug\\values-v11\\values-v11.xml",
         "map": [
             {
                 "to": {
@@ -12,7 +12,7 @@
                     "endOffset": 240
                 },
                 "from": {
-                    "file": "C:\\Users\\hp\\Google Drive\\Grameen\\FOT-Josh\\app\\build\\intermediates\\exploded-aar\\com.actionbarsherlock\\actionbarsherlock\\4.4.0\\res\\values-v11\\values.xml",
+                    "file": "C:\\Users\\hp\\Google Drive\\Grameen\\applab-ug.soilfertilityclient\\app\\build\\intermediates\\exploded-aar\\com.actionbarsherlock\\actionbarsherlock\\4.4.0\\res\\values-v11\\values.xml",
                     "position": {
                         "startLine": 4,
                         "startColumn": 4,
@@ -33,7 +33,7 @@
                     "endOffset": 442
                 },
                 "from": {
-                    "file": "C:\\Users\\hp\\Google Drive\\Grameen\\FOT-Josh\\app\\build\\intermediates\\exploded-aar\\com.actionbarsherlock\\actionbarsherlock\\4.4.0\\res\\values-v11\\values.xml",
+                    "file": "C:\\Users\\hp\\Google Drive\\Grameen\\applab-ug.soilfertilityclient\\app\\build\\intermediates\\exploded-aar\\com.actionbarsherlock\\actionbarsherlock\\4.4.0\\res\\values-v11\\values.xml",
                     "position": {
                         "startLine": 9,
                         "startColumn": 4,
