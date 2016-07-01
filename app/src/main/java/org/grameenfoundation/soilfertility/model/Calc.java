@@ -39,6 +39,11 @@ public class Calc extends BaseDaoEnabled implements Serializable {
     @SerializedName("Region")
     private int region;
 
+    //@DatabaseField
+    @Expose
+    @SerializedName("RegionName")
+    private String regionName;
+
     @DatabaseField
     @Expose
     @SerializedName("FarmerName")
@@ -80,7 +85,7 @@ public class Calc extends BaseDaoEnabled implements Serializable {
     private Collection<CalcCropFertilizerRatio> cropFerts = new ArrayList<CalcCropFertilizerRatio>();
 
     @Expose
-    @SerializedName("database")
+    @SerializedName("Database")
     private Database database;
 
     public Calc() {
@@ -186,6 +191,12 @@ public class Calc extends BaseDaoEnabled implements Serializable {
 
     public void setRegion(int region) {
         this.region = region;
+    }
+
+    public String getRegionName() {return regionName;}
+
+    public void setRegionName(String regionName) {
+        this.regionName = regionName;
     }
 
     public String getUnits() {return units;}

@@ -42,6 +42,7 @@ public class FragmentNewCalculation extends SherlockFragment {
 
     private int regionPos;
     private List<Crop> lst_crops = new ArrayList<Crop>();
+    //private List<String> lst_cropNames = new ArrayList<String>();
     private List<Region> lst_regions;
     private List<RegionCrop> lst_regionCrops;
     private List<Crop> lst_selected_crops = new ArrayList<Crop>();
@@ -108,7 +109,7 @@ public class FragmentNewCalculation extends SherlockFragment {
 
             Region s = (Region) regionsDropdown.getItemAtPosition(regionPos);
 //            //we will get these items from a local database
-            List<RegionCrop>  RegionCrops =   getHelper().getRegionCropDataDao().queryBuilder().distinct().selectColumns("crop_id").where().eq("region_id", s.getId()).query();
+            List<RegionCrop>  RegionCrops =   getHelper().getRegionCropDataDao().queryBuilder().distinct().selectColumns("crop_id").where().eq("regionId", s.getId()).query();
 
             //Get Crop Names
             //lst_crops = new ArrayList<Crop>();
@@ -145,7 +146,7 @@ public class FragmentNewCalculation extends SherlockFragment {
 
                             Region region = (Region) parentView.getItemAtPosition(position);
                             //we will get these items from a local database
-                            List<RegionCrop> RegionCrops = getHelper().getRegionCropDataDao().queryBuilder().distinct().selectColumns("crop_id").where().eq("region_id", region.getId()).query();
+                            List<RegionCrop> RegionCrops = getHelper().getRegionCropDataDao().queryBuilder().distinct().selectColumns("crop_id").where().eq("regionId", region.getId()).query();
 
                             //Get Crop Names
                             lst_crops = new ArrayList<Crop>();

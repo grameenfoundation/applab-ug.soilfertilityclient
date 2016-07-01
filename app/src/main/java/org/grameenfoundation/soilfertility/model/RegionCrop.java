@@ -21,10 +21,10 @@ public class RegionCrop  implements Serializable {
     @SerializedName("Id")
     private int id;
 
-    @DatabaseField(foreign = true,foreignAutoRefresh =true)
+    @DatabaseField
     @Expose
-    @SerializedName("Region")
-    private Region region;
+    @SerializedName("RegionId")
+    private int regionId;
 
     @DatabaseField(foreign = true,foreignAutoRefresh =true)
     @Expose
@@ -35,18 +35,18 @@ public class RegionCrop  implements Serializable {
 
     }
 
-    public RegionCrop(Region Region, Crop Crop) {
-       setRegion(Region);
+    public RegionCrop(int regionId, Crop Crop) {
+       setRegion(regionId);
         setCrop(Crop);
     }
 
 
-     public Region getRegion() {
-        return region;
+     public int getRegion() {
+        return regionId;
      }
 
-    public void setRegion(Region region) {
-         this.region = region;
+    public void setRegion(int regionId) {
+         this.regionId = regionId;
     }
 
     public Crop getCrop() {

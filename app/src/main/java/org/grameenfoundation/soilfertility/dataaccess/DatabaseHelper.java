@@ -31,7 +31,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 
     private static final String DATABASE_NAME = "soilFertility.db";
     // any time changes are made to database objects, the database version has to be increased
-    private static final int DATABASE_VERSION = 13;
+    private static final int DATABASE_VERSION = 18;
 
     // the DAO objects we use to access the database tables
     private Dao<Crop, String> cropDao = null;
@@ -154,48 +154,48 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 
     private void insertDefaultRegionCrops() throws SQLException {
         Dao<RegionCrop, Integer> regionCropDao = getRegionCropDataDao();
-        RegionCrop regionCrop1 = new RegionCrop(regionDao.queryForId(0),cropDao.queryForId("Maize")	);                                   regionCropDao.create(regionCrop1);
-        RegionCrop regionCrop2 = new RegionCrop(regionDao.queryForId(0),cropDao.queryForId("Banana"));                                 regionCropDao.create(regionCrop2);
-        RegionCrop regionCrop3 = new RegionCrop(regionDao.queryForId(0),cropDao.queryForId("Upland Rice"));                           regionCropDao.create(regionCrop3);
-        RegionCrop regionCrop4 = new RegionCrop(regionDao.queryForId(0),cropDao.queryForId("Beans"));                                  regionCropDao.create(regionCrop4);
-        RegionCrop regionCrop5 = new RegionCrop(regionDao.queryForId(0),cropDao.queryForId("Soybeans"));                             regionCropDao.create(regionCrop5);
-        RegionCrop regionCrop6 = new RegionCrop(regionDao.queryForId(0),cropDao.queryForId("Groundnuts-unshelled"));              regionCropDao.create(regionCrop6);
-        RegionCrop regionCrop7 = new RegionCrop(regionDao.queryForId(1),cropDao.queryForId("Maize"));                                   regionCropDao.create(regionCrop7);
-        RegionCrop regionCrop8 = new RegionCrop(regionDao.queryForId(1),cropDao.queryForId("Banana"));                                 regionCropDao.create(regionCrop8);
-        RegionCrop regionCrop9 = new RegionCrop(regionDao.queryForId(1),cropDao.queryForId("Irish Potato"));                           regionCropDao.create(regionCrop9);
-        RegionCrop regionCrop10 = new RegionCrop(regionDao.queryForId(1),cropDao.queryForId("Beans"));                                  regionCropDao.create(regionCrop10);
-        RegionCrop regionCrop11 = new RegionCrop(regionDao.queryForId(1),cropDao.queryForId("Soybeans"));                             regionCropDao.create(regionCrop11);
-        RegionCrop regionCrop12 = new RegionCrop(regionDao.queryForId(1),cropDao.queryForId("Groundnuts-unshelled"));              regionCropDao.create(regionCrop12);
-        RegionCrop regionCrop13 = new RegionCrop(regionDao.queryForId(2),cropDao.queryForId("Maize"));                                   regionCropDao.create(regionCrop13);
-        RegionCrop regionCrop14 = new RegionCrop(regionDao.queryForId(2),cropDao.queryForId("Banana"));                                 regionCropDao.create(regionCrop14);
-        RegionCrop regionCrop15 = new RegionCrop(regionDao.queryForId(2),cropDao.queryForId("Wheat"));                                  regionCropDao.create(regionCrop15);
-        RegionCrop regionCrop16 = new RegionCrop(regionDao.queryForId(2),cropDao.queryForId("Beans"));                                  regionCropDao.create(regionCrop16);
-        RegionCrop regionCrop17 = new RegionCrop(regionDao.queryForId(2),cropDao.queryForId("Soybeans"));                             regionCropDao.create(regionCrop17);
-        RegionCrop regionCrop18 = new RegionCrop(regionDao.queryForId(2),cropDao.queryForId("Groundnuts-unshelled"));              regionCropDao.create(regionCrop18);
-        RegionCrop regionCrop19 = new RegionCrop(regionDao.queryForId(3),cropDao.queryForId("Upland Rice"));                           regionCropDao.create(regionCrop19);
-        RegionCrop regionCrop20 = new RegionCrop(regionDao.queryForId(3),cropDao.queryForId("Maize"));                                   regionCropDao.create(regionCrop20);
-        RegionCrop regionCrop21 = new RegionCrop(regionDao.queryForId(3),cropDao.queryForId("Sorghum"));                               regionCropDao.create(regionCrop21);
-        RegionCrop regionCrop22 = new RegionCrop(regionDao.queryForId(3),cropDao.queryForId("Soybeans"));                             regionCropDao.create(regionCrop22);
-        RegionCrop regionCrop23 = new RegionCrop(regionDao.queryForId(3),cropDao.queryForId("Fingermillet"));                           regionCropDao.create(regionCrop23);
-        RegionCrop regionCrop24 = new RegionCrop(regionDao.queryForId(3),cropDao.queryForId("Beans"));                                  regionCropDao.create(regionCrop24);
-        RegionCrop regionCrop25 = new RegionCrop(regionDao.queryForId(3),cropDao.queryForId("Groundnuts-unshelled"));              regionCropDao.create(regionCrop25);
-        RegionCrop regionCrop26 = new RegionCrop(regionDao.queryForId(4),cropDao.queryForId("Maize"));                                   regionCropDao.create(regionCrop26);
-        RegionCrop regionCrop27= new RegionCrop(regionDao.queryForId(4),cropDao.queryForId("Irish Potato"));                           regionCropDao.create(regionCrop27);
-        RegionCrop regionCrop28 = new RegionCrop(regionDao.queryForId(4),cropDao.queryForId("Wheat"));                                  regionCropDao.create(regionCrop28);
-        RegionCrop regionCrop29 = new RegionCrop(regionDao.queryForId(4),cropDao.queryForId("Beans"));                                  regionCropDao.create(regionCrop29);
-        RegionCrop regionCrop30 = new RegionCrop(regionDao.queryForId(5),cropDao.queryForId("Maize"));                                   regionCropDao.create(regionCrop30);
-        RegionCrop regionCrop31 = new RegionCrop(regionDao.queryForId(5),cropDao.queryForId("Banana"));                                 regionCropDao.create(regionCrop31);
-        RegionCrop regionCrop32 = new RegionCrop(regionDao.queryForId(5),cropDao.queryForId("Irish Potato"));                           regionCropDao.create(regionCrop32);
-        RegionCrop regionCrop33 = new RegionCrop(regionDao.queryForId(5),cropDao.queryForId("Beans"));                                  regionCropDao.create(regionCrop33);
-        RegionCrop regionCrop34 = new RegionCrop(regionDao.queryForId(5),cropDao.queryForId("Fingermillet"));                           regionCropDao.create(regionCrop34);
-        RegionCrop regionCrop35 = new RegionCrop(regionDao.queryForId(5),cropDao.queryForId("Soybeans"));                             regionCropDao.create(regionCrop35);
-        RegionCrop regionCrop36 = new RegionCrop(regionDao.queryForId(6),cropDao.queryForId("Upland Rice"));                           regionCropDao.create(regionCrop36);
-        RegionCrop regionCrop37 = new RegionCrop(regionDao.queryForId(6),cropDao.queryForId("Maize"));                                   regionCropDao.create(regionCrop37);
-        RegionCrop regionCrop38 = new RegionCrop(regionDao.queryForId(6),cropDao.queryForId("Sorghum"));                               regionCropDao.create(regionCrop38);
-        RegionCrop regionCrop39 = new RegionCrop(regionDao.queryForId(6),cropDao.queryForId("Soybeans"));                             regionCropDao.create(regionCrop39);
-        RegionCrop regionCrop40 = new RegionCrop(regionDao.queryForId(6),cropDao.queryForId("Fingermillet"));                           regionCropDao.create(regionCrop40);
-        RegionCrop regionCrop41 = new RegionCrop(regionDao.queryForId(6),cropDao.queryForId("Beans"));                                  regionCropDao.create(regionCrop41);
-        RegionCrop regionCrop42 = new RegionCrop(regionDao.queryForId(6),cropDao.queryForId("Groundnuts-unshelled"));              regionCropDao.create(regionCrop42);
+        RegionCrop regionCrop1 = new RegionCrop(0,cropDao.queryForId("Maize")	);                                   regionCropDao.create(regionCrop1);
+        RegionCrop regionCrop2 = new RegionCrop(0,cropDao.queryForId("Banana"));                                 regionCropDao.create(regionCrop2);
+        RegionCrop regionCrop3 = new RegionCrop(0,cropDao.queryForId("Upland Rice"));                           regionCropDao.create(regionCrop3);
+        RegionCrop regionCrop4 = new RegionCrop(0,cropDao.queryForId("Beans"));                                  regionCropDao.create(regionCrop4);
+        RegionCrop regionCrop5 = new RegionCrop(0,cropDao.queryForId("Soybeans"));                             regionCropDao.create(regionCrop5);
+        RegionCrop regionCrop6 = new RegionCrop(0,cropDao.queryForId("Groundnuts-unshelled"));              regionCropDao.create(regionCrop6);
+        RegionCrop regionCrop7 = new RegionCrop(1,cropDao.queryForId("Maize"));                                   regionCropDao.create(regionCrop7);
+        RegionCrop regionCrop8 = new RegionCrop(1,cropDao.queryForId("Banana"));                                 regionCropDao.create(regionCrop8);
+        RegionCrop regionCrop9 = new RegionCrop(1,cropDao.queryForId("Irish Potato"));                           regionCropDao.create(regionCrop9);
+        RegionCrop regionCrop10 = new RegionCrop(1,cropDao.queryForId("Beans"));                                  regionCropDao.create(regionCrop10);
+        RegionCrop regionCrop11 = new RegionCrop(1,cropDao.queryForId("Soybeans"));                             regionCropDao.create(regionCrop11);
+        RegionCrop regionCrop12 = new RegionCrop(1,cropDao.queryForId("Groundnuts-unshelled"));              regionCropDao.create(regionCrop12);
+        RegionCrop regionCrop13 = new RegionCrop(2,cropDao.queryForId("Maize"));                                   regionCropDao.create(regionCrop13);
+        RegionCrop regionCrop14 = new RegionCrop(2,cropDao.queryForId("Banana"));                                 regionCropDao.create(regionCrop14);
+        RegionCrop regionCrop15 = new RegionCrop(2,cropDao.queryForId("Wheat"));                                  regionCropDao.create(regionCrop15);
+        RegionCrop regionCrop16 = new RegionCrop(2,cropDao.queryForId("Beans"));                                  regionCropDao.create(regionCrop16);
+        RegionCrop regionCrop17 = new RegionCrop(2,cropDao.queryForId("Soybeans"));                             regionCropDao.create(regionCrop17);
+        RegionCrop regionCrop18 = new RegionCrop(2,cropDao.queryForId("Groundnuts-unshelled"));              regionCropDao.create(regionCrop18);
+        RegionCrop regionCrop19 = new RegionCrop(3,cropDao.queryForId("Upland Rice"));                           regionCropDao.create(regionCrop19);
+        RegionCrop regionCrop20 = new RegionCrop(3,cropDao.queryForId("Maize"));                                   regionCropDao.create(regionCrop20);
+        RegionCrop regionCrop21 = new RegionCrop(3,cropDao.queryForId("Sorghum"));                               regionCropDao.create(regionCrop21);
+        RegionCrop regionCrop22 = new RegionCrop(3,cropDao.queryForId("Soybeans"));                             regionCropDao.create(regionCrop22);
+        RegionCrop regionCrop23 = new RegionCrop(3,cropDao.queryForId("Fingermillet"));                           regionCropDao.create(regionCrop23);
+        RegionCrop regionCrop24 = new RegionCrop(3,cropDao.queryForId("Beans"));                                  regionCropDao.create(regionCrop24);
+        RegionCrop regionCrop25 = new RegionCrop(3,cropDao.queryForId("Groundnuts-unshelled"));              regionCropDao.create(regionCrop25);
+        RegionCrop regionCrop26 = new RegionCrop(4,cropDao.queryForId("Maize"));                                   regionCropDao.create(regionCrop26);
+        RegionCrop regionCrop27= new RegionCrop(4,cropDao.queryForId("Irish Potato"));                           regionCropDao.create(regionCrop27);
+        RegionCrop regionCrop28 = new RegionCrop(4,cropDao.queryForId("Wheat"));                                  regionCropDao.create(regionCrop28);
+        RegionCrop regionCrop29 = new RegionCrop(4,cropDao.queryForId("Beans"));                                  regionCropDao.create(regionCrop29);
+        RegionCrop regionCrop30 = new RegionCrop(5,cropDao.queryForId("Maize"));                                   regionCropDao.create(regionCrop30);
+        RegionCrop regionCrop31 = new RegionCrop(5,cropDao.queryForId("Banana"));                                 regionCropDao.create(regionCrop31);
+        RegionCrop regionCrop32 = new RegionCrop(5,cropDao.queryForId("Irish Potato"));                           regionCropDao.create(regionCrop32);
+        RegionCrop regionCrop33 = new RegionCrop(5,cropDao.queryForId("Beans"));                                  regionCropDao.create(regionCrop33);
+        RegionCrop regionCrop34 = new RegionCrop(5,cropDao.queryForId("Fingermillet"));                           regionCropDao.create(regionCrop34);
+        RegionCrop regionCrop35 = new RegionCrop(5,cropDao.queryForId("Soybeans"));                             regionCropDao.create(regionCrop35);
+        RegionCrop regionCrop36 = new RegionCrop(6,cropDao.queryForId("Upland Rice"));                           regionCropDao.create(regionCrop36);
+        RegionCrop regionCrop37 = new RegionCrop(6,cropDao.queryForId("Maize"));                                   regionCropDao.create(regionCrop37);
+        RegionCrop regionCrop38 = new RegionCrop(6,cropDao.queryForId("Sorghum"));                               regionCropDao.create(regionCrop38);
+        RegionCrop regionCrop39 = new RegionCrop(6,cropDao.queryForId("Soybeans"));                             regionCropDao.create(regionCrop39);
+        RegionCrop regionCrop40 = new RegionCrop(6,cropDao.queryForId("Fingermillet"));                           regionCropDao.create(regionCrop40);
+        RegionCrop regionCrop41 = new RegionCrop(6,cropDao.queryForId("Beans"));                                  regionCropDao.create(regionCrop41);
+        RegionCrop regionCrop42 = new RegionCrop(6,cropDao.queryForId("Groundnuts-unshelled"));              regionCropDao.create(regionCrop42);
 
     }
 
@@ -225,6 +225,17 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         } catch (SQLException e) {
             log.error("Can't drop databases", e);
             throw new RuntimeException(e);
+        }
+    }
+
+    public void onVersionChange(Calc calc) throws SQLException {
+       Database newdb = calc.getDatabase();
+        if (!newdb.getCrops().isEmpty()){
+            TableUtils.dropTable(connectionSource, Crop.class, true);
+            TableUtils.createTable(connectionSource, Crop.class);
+            for (Crop crop : newdb.getCrops()) {
+                getCropDataDao().create(crop);
+            }
         }
     }
 

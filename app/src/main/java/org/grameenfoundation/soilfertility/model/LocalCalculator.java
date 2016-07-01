@@ -16,6 +16,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSyntaxException;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
+import com.j256.ormlite.table.TableUtils;
+
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
@@ -205,6 +207,15 @@ public class LocalCalculator extends AsyncTask<Calc, Void, Calc> {
      * @param details the calc object that holds the child/transient objects
      */
     private void saveReferenceForTransientObjects(Calc details) {
+
+        //Drop and update database base records basing on version date in returned calculation from server
+        try{
+            getHelper().onVersionChange(details);
+        }
+        catch (SQLException e) {
+            Log.e(getClass().getSimpleName(), "Database exception", e);
+        }
+            //Start of the transient fields
         for (CalcCrop crop : details.getCalcCrops()) {
             crop.setCalculation(details);
             try {

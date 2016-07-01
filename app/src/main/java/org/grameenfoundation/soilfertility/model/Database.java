@@ -3,6 +3,7 @@ package org.grameenfoundation.soilfertility.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -14,63 +15,63 @@ import java.util.List;
  *
  * custom database class to pass data between the server and mobile client
  */
-public class Database  {
+public class Database implements Serializable {
     public Database() {
 
     }
 
     @Expose
     @SerializedName("VersionDateTime")
-    public Date VersionDateTime;
+    public Date versionDateTime;
 
     @Expose
     @SerializedName("Regions")
-    private Collection<Region> Regions = new ArrayList<Region>();
+    private Collection<Region> regions = new ArrayList<Region>();
 
     @Expose
     @SerializedName("Crops")
-    private Collection<Crop>  Crops = new ArrayList<Crop>();
+    private Collection<Crop>  crops = new ArrayList<Crop>();
 
     @Expose
     @SerializedName("RegionCrops")
-    private Collection<RegionCrop> RegionCrops = new ArrayList<RegionCrop>();
+    private Collection<RegionCrop> regionCrops = new ArrayList<RegionCrop>();
 
-    public Date getVersionDateTime(Version version) {
-        return version.getVersion();
+    public Date getVersionDateTime() {
+        return versionDateTime;
     }
 
     public void setVersionDateTime(Version version) {
-        this.VersionDateTime = version.getVersion();
+        this.versionDateTime = version.getVersion();
     }
 
-    public void setRegions(List<Region> Regions) {
-        for (Region region : Regions) {
-              this.Regions.add(region);
+    public void setRegions(List<Region> regions) {
+        for (Region region : regions) {
+              this.regions.add(region);
         }
     }
 
     public Collection<Region> getRegions() {
-        return Regions;
+        return regions;
     }
 
     public void setCrops(List<Crop> Crops) {
         for (Crop crop : Crops) {
-            this.Crops.add(crop);
+            this.crops.add(crop);
         }
     }
 
     public Collection<Crop> getCrops() {
-        return Crops;
+        return crops;
     }
 
     public void setRegionCrops(List<RegionCrop> RegionCrops) {
         for (RegionCrop regionCrop : RegionCrops ) {
-            this.RegionCrops.add(regionCrop);
+            this.regionCrops.add(regionCrop);
         }
     }
 
     public Collection<RegionCrop> getRegionCrops() {
-        return RegionCrops;
+        return regionCrops;
     }
 
 
