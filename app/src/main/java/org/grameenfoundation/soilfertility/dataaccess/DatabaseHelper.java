@@ -228,15 +228,38 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         }
     }
 
-    public void onVersionChange(Calc calc) throws SQLException {
-       Database newdb = calc.getDatabase();
-        if (!newdb.getCrops().isEmpty()){
+    public void onVersionChange(Calc calc,Database newdb) throws SQLException {
+
+        //Save the new Crops from server
+        if (!newdb.getCrops().isEmpty()) {
             TableUtils.dropTable(connectionSource, Crop.class, true);
             TableUtils.createTable(connectionSource, Crop.class);
             for (Crop crop : newdb.getCrops()) {
                 getCropDataDao().create(crop);
             }
         }
+        //Save the new Regions
+        if (!newdb.getRegions().isEmpty()) {
+            TableUtils.dropTable(connectionSource, Region.class, true);
+            TableUtils.createTable(connectionSource, Region.class);
+            for (Region region : newdb.getRegions()) {
+                getRegionDataDao().create(region);
+            }
+        }
+        //Save the new Region_Crops
+        if (!newdb.getRegionCrops().isEmpty()) {
+            TableUtils.dropTable(connectionSource, RegionCrop.class, true);
+            TableUtils.createTable(connectionSource, RegionCrop.class);
+            for (RegionCrop regionCrop : newdb.getRegionCrops()) {
+                getRegionCropDataDao().create(regionCrop);
+            }
+        }
+        //Save the new Version Date
+
+        TableUtils.dropTable(connectionSource, Version.class, true);
+        TableUtils.createTable(connectionSource, Version.class);
+        Version newVersionDate = new Version(newdb.getVersionDateTime());
+        getVersionDataDao().create(newVersionDate);
     }
 
     public Dao<Version, String> getVersionDataDao() throws SQLException {

@@ -20,12 +20,12 @@
         "source": "C:\\Users\\hp\\Google Drive\\Grameen\\applab-ug.soilfertilityclient\\app\\src\\main\\res\\layout\\new_resultrow_total_fertilizers.xml"
     },
     {
-        "merged": "C:\\Users\\hp\\Google Drive\\Grameen\\applab-ug.soilfertilityclient\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abs__list_menu_item_radio.xml",
-        "source": "C:\\Users\\hp\\Google Drive\\Grameen\\applab-ug.soilfertilityclient\\app\\build\\intermediates\\exploded-aar\\com.actionbarsherlock\\actionbarsherlock\\4.4.0\\res\\layout\\abs__list_menu_item_radio.xml"
-    },
-    {
         "merged": "C:\\Users\\hp\\Google Drive\\Grameen\\applab-ug.soilfertilityclient\\app\\build\\intermediates\\res\\merged\\debug\\layout\\new_resultrow_crop_fertilzer_ratio.xml",
         "source": "C:\\Users\\hp\\Google Drive\\Grameen\\applab-ug.soilfertilityclient\\app\\src\\main\\res\\layout\\new_resultrow_crop_fertilzer_ratio.xml"
+    },
+    {
+        "merged": "C:\\Users\\hp\\Google Drive\\Grameen\\applab-ug.soilfertilityclient\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abs__list_menu_item_radio.xml",
+        "source": "C:\\Users\\hp\\Google Drive\\Grameen\\applab-ug.soilfertilityclient\\app\\build\\intermediates\\exploded-aar\\com.actionbarsherlock\\actionbarsherlock\\4.4.0\\res\\layout\\abs__list_menu_item_radio.xml"
     },
     {
         "merged": "C:\\Users\\hp\\Google Drive\\Grameen\\applab-ug.soilfertilityclient\\app\\build\\intermediates\\res\\merged\\debug\\layout\\new_row_fertilizer_layout.xml",

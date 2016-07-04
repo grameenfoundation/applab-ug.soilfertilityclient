@@ -95,7 +95,7 @@ public class LocalCalculator extends AsyncTask<Calc, Void, Calc> {
         try {
             try {
                 if (checkInternetConnection()) {
-                    Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+                    Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().setDateFormat("yyyy-MM-dd'T'HH:mm:ss").create();
                     String json = gson.toJson(details);
 
                     final HttpParams httpParams = new BasicHttpParams();
@@ -210,7 +210,9 @@ public class LocalCalculator extends AsyncTask<Calc, Void, Calc> {
 
         //Drop and update database base records basing on version date in returned calculation from server
         try{
-            getHelper().onVersionChange(details);
+            Database newdb = details.getDatabase();
+            if (newdb.getVersionDateTime().after(getHelper().getVersionDataDao().queryBuilder().orderBy("dateModified",false).queryForFirst().getVersion()) ) {
+            getHelper().onVersionChange(details,newdb);}
         }
         catch (SQLException e) {
             Log.e(getClass().getSimpleName(), "Database exception", e);
